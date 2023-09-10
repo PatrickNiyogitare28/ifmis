@@ -1,6 +1,7 @@
 import Input from '@/components/Elements/Input';
 import React from 'react';
 import Select from 'react-select';
+import InfoLabel from '../Labels/InfoLabel';
 
 
 export default function AddUserForm(){
@@ -37,6 +38,7 @@ export default function AddUserForm(){
                 <Input placeholder='Default password' type="password" />
             </div>
             <div className='mt-2'>
+                <InfoLabel text='Select Role' info='The user Role' />
                 <Select options={roleOptions}  classNamePrefix='py-[5px]  bg-red-500' className='rounded-xl'/>
             </div>
             <div>

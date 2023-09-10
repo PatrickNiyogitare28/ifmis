@@ -2,6 +2,7 @@ import { User } from "@/types/user";
 
 const users: User[] = [
     {
+      Id: "auda8-adkad-39242a",
       FullName: 'John Doe',
       Phone: '123-456-7890',
       Email: 'john@example.com',
@@ -9,6 +10,7 @@ const users: User[] = [
       Role: 'ADMIN',
     },
     {
+      Id: "auda8-adkad-ajda8",
       FullName: 'Jane Smith',
       Phone: '987-654-3210',
       Email: 'jane@example.com',
@@ -16,6 +18,7 @@ const users: User[] = [
       Role: 'REFUGEE_FOCAL_POINT',
     },
     {
+      Id: "auda8-adkad-kad932",
       FullName: 'Bob Johnson',
       Phone: '555-123-4567',
       Email: 'bob@example.com',
@@ -23,6 +26,7 @@ const users: User[] = [
       Role: 'REFUGEE',
     },
     {
+      Id: "auda8-adkad-ad4723",
       FullName: 'Alice Johnson',
       Phone: '555-987-6543',
       Email: 'alice@example.com',
@@ -30,6 +34,7 @@ const users: User[] = [
       Role: 'GOVERNMENT_ADMIN',
     },
     {
+      Id: "auda8-adkad-.lkdm87",
       FullName: 'Eva Adams',
       Phone: '111-222-3333',
       Email: 'eva@example.com',
@@ -37,6 +42,7 @@ const users: User[] = [
       Role: 'CONCERNED_MINISTRY_ADMIN',
     },
     {
+      Id: "auda8-adkad-adadk3",
       FullName: 'David Brown',
       Phone: '444-555-6666',
       Email: 'david@example.com',
@@ -44,6 +50,7 @@ const users: User[] = [
       Role: 'DISTRICT_ADMIN',
     },
     {
+      Id: "auda8-adkad-238ad",
       FullName: 'Laura White',
       Phone: '777-888-9999',
       Email: 'laura@example.com',
@@ -51,6 +58,7 @@ const users: User[] = [
       Role: 'SECTOR_ADMIN',
     },
     {
+      Id: "auda8-adkad-ad482",
       FullName: 'Mark Green',
       Phone: '333-444-5555',
       Email: 'mark@example.com',
@@ -58,16 +66,51 @@ const users: User[] = [
       Role: 'SECTOR',
     },
     {
+      Id: "auda8-adkad-aadka484",
       FullName: 'Sarah Black',
       Phone: '666-777-8888',
       Email: 'sarah@example.com',
       Status: 'PENDING',
-      Role: 'ADMIN',
+      Role: 'REFUGEE',
     },
     {
+      Id: "auda8-adkad-ad4723",
       FullName: 'Tom Grey',
       Phone: '999-888-7777',
-      Email: 'tom@example.com',
+      Email: 'tomgrey@example.com',
+      Status: 'ACTIVE',
+      Role: 'REFUGEE',
+    },
+
+    {
+      Id: "auda8-adkad-23842a",
+      FullName: 'Peter Seven',
+      Phone: '777-888-4724',
+      Email: 'sevenp@example.com',
+      Status: 'ACTIVE',
+      Role: 'SECTOR_ADMIN',
+    },
+    {
+      Id: "auda8-adkad-462ad",
+      FullName: 'John Hopkins',
+      Phone: '333-444-2452',
+      Email: 'johnp@example.com',
+      Status: 'INACTIVE',
+      Role: 'SECTOR',
+    },
+    {
+      Id: "auda8-adkad-bbadc32",
+      FullName: 'David Rick',
+      Phone: '666-777-2242',
+      Email: 'sarah@example.com',
+      Status: 'PENDING',
+      Role: 'REFUGEE',
+    },
+    {
+      Id: "auda8-adkad-ada3424",
+      FullName: 'Emmy Kevin',
+      Phone: '999-888-6634',
+      Email: 'emmykevin@example.com',
       Status: 'ACTIVE',
       Role: 'GOVERNMENT_ADMIN',
     },
