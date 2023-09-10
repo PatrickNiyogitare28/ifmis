@@ -26,7 +26,7 @@ export default function MenuHandler(){
              label='Integration types'
             />
              <MenuItem 
-             onRoute={() => onRoute("/admin/integration-users")}
+             onRoute={() => onRoute("/admin/users")}
              isActive={checkIsActiveRoute("/admin/users", true)}
              icon={<BiGroup color={(checkIsActiveRoute("/admin/users", true)) ? 'white' : 'silver'} size={20} />}
              label='Users'
