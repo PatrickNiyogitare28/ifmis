@@ -2,7 +2,7 @@ import IntegrationTypes from '@/components/IntegrationTypes';
 import Dashboard from '@/components/Layouts/Dashboard';
 import React from 'react';
 
-export default function IntegrationTypesPage(){
+export default function MessagesPage(){
     return (
        <Dashboard role={'ADMIN'}>
             <IntegrationTypes />

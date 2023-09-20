@@ -5,11 +5,13 @@ import LoginForm from '@/components/Forms/Login';
 
 export default function Login(){
     return (
-        <div className='h-[100vh] w-screen bg-primary flex items-center overflow-y-hidden'>
+        <div className='h-[100vh] w-screen bg-white flex items-center overflow-y-hidden'>
             <Toaster />
-            <div className='w-[50%] flex'>
-                <img  src="/assets/images/white-bars.svg" alt="bars" className='h-full ml-[5%]' />
-                <img src="/assets/images/app-logo-blue.svg" alt="logo" className='w-[80%]' />
+            <div className='w-[50%] flex  items-center'>
+                <img  src="/assets/images/imigongo.png" alt="bars" className='h-full ml-[5%]' />
+                <div className='flex justify-around h-[100%] items-center'>
+                    <img src="/assets/images/app-logo.png" alt="logo" className=' ' draggable={false}  style={{width: 400}} />
+                </div>
             </div>
             <div className='w-[30%]'>
                 <LoginForm />

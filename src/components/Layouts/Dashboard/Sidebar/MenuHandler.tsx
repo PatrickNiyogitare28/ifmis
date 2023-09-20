@@ -14,16 +14,16 @@ export default function MenuHandler(){
              label='Dashboard'
             />
             <MenuItem 
-             onRoute={() => onRoute("/admin/integration-requests")}
-             isActive={checkIsActiveRoute("/admin/integration-requests", true)}
-             icon={<BiBox color={(checkIsActiveRoute("/admin/integration-requests", true)) ? 'white' : 'silver'} size={20} />}
-             label='Integration requests'
+             onRoute={() => onRoute("/admin/appointments")}
+             isActive={checkIsActiveRoute("/admin/appointments", true)}
+             icon={<BiBox color={(checkIsActiveRoute("/admin/appointments", true)) ? 'white' : 'silver'} size={20} />}
+             label='Appointments'
             />
              <MenuItem 
-             onRoute={() => onRoute("/admin/integration-types")}
-             isActive={checkIsActiveRoute("/admin/integration-types", true)}
-             icon={<BiListUl color={(checkIsActiveRoute("/admin/integration-types", true)) ? 'white' : 'silver'} size={20} />}
-             label='Integration types'
+             onRoute={() => onRoute("/admin/messages")}
+             isActive={checkIsActiveRoute("/admin/messages", true)}
+             icon={<BiListUl color={(checkIsActiveRoute("/admin/messages", true)) ? 'white' : 'silver'} size={20} />}
+             label='Messages'
             />
              <MenuItem 
              onRoute={() => onRoute("/admin/users")}

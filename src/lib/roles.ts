@@ -1,7 +1,7 @@
 export const defaultRoles = [
 {
-    email: 'honorensabo@gmail.com',
+    email: 'osee@gmail.com',
     password: '123456',
-    name: 'Honore Nsabo',
+    name: 'Osee NTWALI',
     role: 'ADMIN'
 }]

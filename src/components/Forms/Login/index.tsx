@@ -10,7 +10,7 @@ export default function LoginForm(){
     const {handleEmail, handlePassword, onSubmit} = useLogin();
 
     return (
-        <div className='bg-white rounded-xl w-full px-12 py-12'>
+        <div className='bg-white rounded-xl w-full px-12 py-12 shadow-sm'>
             <h1 className='text-xl text-black font-bold'>Login to continue</h1>
             <h3 className='text-gray-400 font-lighter'>Refugee Settlement System</h3>
             <div className='mt-8'>
