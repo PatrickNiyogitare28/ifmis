@@ -1,11 +1,11 @@
-import Appointments from '@/components/Appointments';
+import IntegrationTypes from '@/components/IntegrationTypes';
 import Dashboard from '@/components/Layouts/Dashboard';
 import React from 'react';
 
-export default function AppointmentsPage(){
+export default function MessagesPage(){
     return (
        <Dashboard role={'ADMIN'}>
-            <Appointments />
+            <IntegrationTypes />
        </Dashboard>
     )
 }

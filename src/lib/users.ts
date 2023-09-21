@@ -7,6 +7,7 @@ const users: User[] = [
       Phone: '123-456-7890',
       Email: 'john@example.com',
       Status: 'ACTIVE',
+      Type: 'CLIENT',
       Role: 'ADMIN',
     },
     {
@@ -14,16 +15,18 @@ const users: User[] = [
       FullName: 'Jane Smith',
       Phone: '987-654-3210',
       Email: 'jane@example.com',
-      Status: 'INACTIVE',
-      Role: 'REFUGEE_FOCAL_POINT',
+      Status: 'ACTIVE',
+      Type: 'CLIENT',
+      Role: 'ADMIN',
     },
     {
       Id: "auda8-adkad-kad932",
       FullName: 'Bob Johnson',
       Phone: '555-123-4567',
       Email: 'bob@example.com',
-      Status: 'PENDING',
-      Role: 'REFUGEE',
+      Status: 'ACTIVE',
+      Type: 'CLIENT',
+      Role: 'ADMIN',
     },
     {
       Id: "auda8-adkad-ad4723",
@@ -31,7 +34,8 @@ const users: User[] = [
       Phone: '555-987-6543',
       Email: 'alice@example.com',
       Status: 'ACTIVE',
-      Role: 'GOVERNMENT_ADMIN',
+      Type: 'CLIENT',
+      Role: 'ORGANIZATION',
     },
     {
       Id: "auda8-adkad-.lkdm87",
@@ -39,7 +43,8 @@ const users: User[] = [
       Phone: '111-222-3333',
       Email: 'eva@example.com',
       Status: 'INACTIVE',
-      Role: 'CONCERNED_MINISTRY_ADMIN',
+      Type: 'CLIENT',
+      Role: 'ORGANIZATION',
     },
     {
       Id: "auda8-adkad-adadk3",
@@ -47,7 +52,8 @@ const users: User[] = [
       Phone: '444-555-6666',
       Email: 'david@example.com',
       Status: 'PENDING',
-      Role: 'DISTRICT_ADMIN',
+      Type: 'CLIENT',
+      Role: 'ORGANIZATION',
     },
     {
       Id: "auda8-adkad-238ad",
@@ -55,7 +61,8 @@ const users: User[] = [
       Phone: '777-888-9999',
       Email: 'laura@example.com',
       Status: 'ACTIVE',
-      Role: 'SECTOR_ADMIN',
+      Type: 'CLIENT',
+      Role: 'ORGANIZATION',
     },
     {
       Id: "auda8-adkad-ad482",
@@ -63,7 +70,8 @@ const users: User[] = [
       Phone: '333-444-5555',
       Email: 'mark@example.com',
       Status: 'INACTIVE',
-      Role: 'SECTOR',
+      Type: 'CLIENT',
+      Role: 'ORGANIZATION',
     },
     {
       Id: "auda8-adkad-aadka484",
@@ -71,7 +79,8 @@ const users: User[] = [
       Phone: '666-777-8888',
       Email: 'sarah@example.com',
       Status: 'PENDING',
-      Role: 'REFUGEE',
+      Type: 'CLIENT',
+      Role: 'ORGANIZATION',
     },
     {
       Id: "auda8-adkad-ad4723",
@@ -79,7 +88,8 @@ const users: User[] = [
       Phone: '999-888-7777',
       Email: 'tomgrey@example.com',
       Status: 'ACTIVE',
-      Role: 'REFUGEE',
+      Type: 'CLIENT',
+      Role: 'ORGANIZATION',
     },
 
     {
@@ -88,7 +98,8 @@ const users: User[] = [
       Phone: '777-888-4724',
       Email: 'sevenp@example.com',
       Status: 'ACTIVE',
-      Role: 'SECTOR_ADMIN',
+      Type: 'CLIENT',
+      Role: 'ORGANIZATION',
     },
     {
       Id: "auda8-adkad-462ad",
@@ -96,7 +107,8 @@ const users: User[] = [
       Phone: '333-444-2452',
       Email: 'johnp@example.com',
       Status: 'INACTIVE',
-      Role: 'SECTOR',
+      Type: 'CLIENT',
+      Role: 'ORGANIZATION',
     },
     {
       Id: "auda8-adkad-bbadc32",
@@ -104,7 +116,8 @@ const users: User[] = [
       Phone: '666-777-2242',
       Email: 'sarah@example.com',
       Status: 'PENDING',
-      Role: 'REFUGEE',
+      Type: 'CLIENT',
+      Role: 'ORGANIZATION',
     },
     {
       Id: "auda8-adkad-ada3424",
@@ -112,7 +125,8 @@ const users: User[] = [
       Phone: '999-888-6634',
       Email: 'emmykevin@example.com',
       Status: 'ACTIVE',
-      Role: 'GOVERNMENT_ADMIN',
+      Type: 'CLIENT',
+      Role: 'ORGANIZATION',
     },
   ];
   

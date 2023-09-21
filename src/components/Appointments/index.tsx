@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import {BiPlus} from 'react-icons/bi';
 import Modal from '../Modal';
-import IntegrationRequestsTable from '../Elements/Tables/IntegrationRequests';
-import INTEGRATION_REQUESTS from '@/lib/integration-requests';
+import APPOINTMENTS from '@/lib/appointments';
 import AddIntegrationRequestForm from '../Forms/IntegrationRequest/AddIntegrationRequest';
+import AppointmentsTable from '../Elements/Tables/AppointmentTable';
 
-export default function IntegrationRequests () {
+export default function AppointmentsList () {
     const [showModal, setShowModal] = useState<boolean>(false);
     return (
         <>
@@ -17,7 +17,7 @@ export default function IntegrationRequests () {
                 </button>
             </div>
             <div className="mt-4">
-            <IntegrationRequestsTable integrationRequests={INTEGRATION_REQUESTS} />
+            <AppointmentsTable appointments={APPOINTMENTS} />
             </div>
         </div>
         {showModal &&

@@ -6,7 +6,7 @@ export default function AdminStatistics () {
         <div className='w-full flex justify-between  px-6 mt-6    '>
             <div className='w-[20%] bg-white shadow-md rounded-md p-4'>
                 <div className='flex justify-between items-center'>
-                <label>USERS</label>
+                <label>APPOINTMENTS</label>
                 <BiGroup size={30} color='silver' />
                 </div>
                 <div>
@@ -16,7 +16,7 @@ export default function AdminStatistics () {
 
             <div className='w-[20%] bg-white shadow-md rounded-md p-4'>
                 <div className='flex justify-between items-center'>
-                <label>REFUGEE</label>
+                <label>QUESTIONS</label>
                 <BiSolidGroup size={30}  color='silver'  />
                 </div>
                 <div>
@@ -26,7 +26,7 @@ export default function AdminStatistics () {
 
             <div className='w-[20%] bg-white shadow-md rounded-md p-4'>
                 <div className='flex justify-between items-center'>
-                <label>INTEGRATIONS DONE</label>
+                <label>CLIENTS</label>
                 <BiListCheck  size={35} color={"silver"} />
                 </div>
                 <div>
@@ -36,7 +36,7 @@ export default function AdminStatistics () {
 
             <div className='w-[20%] bg-white shadow-md rounded-md p-4'>
                 <div className='flex justify-between items-center'>
-                <label>PENDING</label>
+                <label>ORGNIZATION</label>
                 <BiListMinus size={35} color={"silver"} />
                 </div>
                 <div>

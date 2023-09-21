@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import {BiPlus} from 'react-icons/bi';
 import Modal from '../Modal';
-import IntegrationTypeTable from '../Elements/Tables/IntegrationType';
-import INTEGRATION_TYPES from '@/lib/integration-types';
+import MessagesTable from '../Elements/Tables/MessageTable';
 import AddIntegrationTypeForm from '../Forms/IntegrationType/AddIntegrationType';
+import MESSAGES from '@/lib/messages';
 
 export default function IntegrationTypes () {
     const [showModal, setShowModal] = useState<boolean>(false);
@@ -17,7 +17,7 @@ export default function IntegrationTypes () {
                 </button>
             </div>
             <div className="mt-4">
-            <IntegrationTypeTable integrationTypes={INTEGRATION_TYPES} />
+            <MessagesTable messages={MESSAGES} />
             </div>
         </div>
         {showModal &&
