@@ -1471,6 +1471,11 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = { __typename?: 'mutation_root', insert_User_one?: { __typename?: 'User', Id: any, FullName: string, Email: string, Phone: string, Role: string, IsOrganization: boolean, IsActive: boolean } | null };
 
+export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllUsersQuery = { __typename?: 'query_root', User: Array<{ __typename?: 'User', Id: any, FullName: string, Email: string, Phone: string, Role: string, IsActive: boolean, IsOrganization: boolean, CreatedAt?: any | null, UpdatedAt?: any | null }> };
+
 export type GetUserWithEmailQueryVariables = Exact<{
   Email?: InputMaybe<Scalars['String']>;
 }>;
@@ -1498,6 +1503,21 @@ export const CreateUserDocument = gql`
     Role
     IsOrganization
     IsActive
+  }
+}
+    `;
+export const GetAllUsersDocument = gql`
+    query getAllUsers {
+  User {
+    Id
+    FullName
+    Email
+    Phone
+    Role
+    IsActive
+    IsOrganization
+    CreatedAt
+    UpdatedAt
   }
 }
     `;
@@ -1543,6 +1563,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
   return {
     createUser(variables?: CreateUserMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CreateUserMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateUserMutation>(CreateUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createUser', 'mutation');
+    },
+    getAllUsers(variables?: GetAllUsersQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetAllUsersQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetAllUsersQuery>(GetAllUsersDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAllUsers', 'query');
     },
     getUserWithEmail(variables?: GetUserWithEmailQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetUserWithEmailQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetUserWithEmailQuery>(GetUserWithEmailDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getUserWithEmail', 'query');

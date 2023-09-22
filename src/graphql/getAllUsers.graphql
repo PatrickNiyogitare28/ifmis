@@ -1,0 +1,13 @@
+query getAllUsers{
+  User{
+    Id
+    FullName
+    Email
+    Phone
+    Role
+    IsActive
+    IsOrganization
+    CreatedAt
+    UpdatedAt
+  }
+}

@@ -1479,6 +1479,11 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = { __typename?: 'mutation_root', insert_User_one?: { __typename?: 'User', Id: any, FullName: string, Email: string, Phone: string, Role: string, IsOrganization: boolean, IsActive: boolean } | null };
 
+export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllUsersQuery = { __typename?: 'query_root', User: Array<{ __typename?: 'User', Id: any, FullName: string, Email: string, Phone: string, Role: string, IsActive: boolean, IsOrganization: boolean, CreatedAt?: any | null, UpdatedAt?: any | null }> };
+
 export type GetUserWithEmailQueryVariables = Exact<{
   Email?: InputMaybe<Scalars['String']>;
 }>;
@@ -1522,6 +1527,51 @@ export const useCreateUserMutation = <
       (variables?: CreateUserMutationVariables) => fetcher<CreateUserMutation, CreateUserMutationVariables>(client, CreateUserDocument, variables, headers)(),
       options
     );
+export const GetAllUsersDocument = `
+    query getAllUsers {
+  User {
+    Id
+    FullName
+    Email
+    Phone
+    Role
+    IsActive
+    IsOrganization
+    CreatedAt
+    UpdatedAt
+  }
+}
+    `;
+export const useGetAllUsersQuery = <
+      TData = GetAllUsersQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: GetAllUsersQueryVariables,
+      options?: UseQueryOptions<GetAllUsersQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetAllUsersQuery, TError, TData>(
+      variables === undefined ? ['getAllUsers'] : ['getAllUsers', variables],
+      fetcher<GetAllUsersQuery, GetAllUsersQueryVariables>(client, GetAllUsersDocument, variables, headers),
+      options
+    );
+export const useInfiniteGetAllUsersQuery = <
+      TData = GetAllUsersQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof GetAllUsersQueryVariables,
+      client: GraphQLClient,
+      variables?: GetAllUsersQueryVariables,
+      options?: UseInfiniteQueryOptions<GetAllUsersQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<GetAllUsersQuery, TError, TData>(
+      variables === undefined ? ['getAllUsers.infinite'] : ['getAllUsers.infinite', variables],
+      (metaData) => fetcher<GetAllUsersQuery, GetAllUsersQueryVariables>(client, GetAllUsersDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );
+
 export const GetUserWithEmailDocument = `
     query getUserWithEmail($Email: String) {
   User(where: {Email: {_eq: $Email}}) {

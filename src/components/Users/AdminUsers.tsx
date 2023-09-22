@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import UserTable from '../Elements/Tables/Users';
 import users from '@/lib/users';
 import {BiPlus} from 'react-icons/bi';
 import {Toaster} from 'react-hot-toast';
 import Modal from '../Modal';
 import AddUserForm from '../Forms/User/AddUser';
+import { GetAllUsersDocument, GetAllUsersQuery, useGetAllUsersQuery } from '@/generated/graphql';
+import useClient from '@/lib/client/useClient';
+import { GetServerSideProps } from 'next';
+import graphqlRequestClient from '@/lib/client';
+import useFetchUsers from './hooks/useFetchUsers';
 
-export default function AdminUsers () {
+export default function AdminUsers (props: any) {
     const [showModal, setShowModal] = useState<boolean>(false);
+    const {users, refetch}= useFetchUsers();
     return (
         <>
         <Toaster />
@@ -24,7 +30,7 @@ export default function AdminUsers () {
         </div>
         {showModal &&
           <Modal title='ADD USER' onClose={() => setShowModal(false)}>
-            <AddUserForm onClose={() => setShowModal(false)} />
+            <AddUserForm onClose={() => {setShowModal(false); refetch()}} />
           </Modal>
         }
         </>
