@@ -1,0 +1,16 @@
+query getUserForLogin($Email: String) {
+  User(where: {Email: {_eq: $Email}}) {
+    Id
+    Email
+    Password
+    Phone
+    Role
+    IsOrganization
+    IsActive
+  }
+  User_aggregate(where: {Email: {_eq: $Email}}) {
+    aggregate {
+      count
+    }
+  }
+}

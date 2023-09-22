@@ -1,0 +1,11 @@
+query getUserWithEmail($Email: String) {
+  User(where: {Email: {_eq: $Email}}) {
+    Id
+    Email
+  }
+  User_aggregate(where: {Email: {_eq: $Email}}) {
+    aggregate {
+      count
+    }
+  }
+}

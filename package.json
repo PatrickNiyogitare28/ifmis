@@ -6,17 +6,21 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "codegen": "graphql-codegen --config codegen.yml -r dotenv/config"
   },
   "dependencies": {
+    "@graphql-codegen/typescript-graphql-request": "^5.0.0",
     "@types/node": "20.5.7",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.15",
     "axios": "^1.5.0",
     "bcryptjs": "^2.4.3",
+    "dotenv": "^16.3.1",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
+    "graphql": "^16.8.1",
     "jsonwebtoken": "^9.0.1",
     "lodash": "^4.17.21",
     "next": "13.4.19",
@@ -30,5 +34,21 @@
     "typescript": "5.2.2",
     "uuid": "^9.0.1",
     "yup": "^1.2.0"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "3.3.0",
+    "@graphql-codegen/client-preset": "3.0.0",
+    "@graphql-codegen/introspection": "^3.0.1",
+    "@graphql-codegen/typescript": "^3.0.3",
+    "@graphql-codegen/typescript-document-nodes": "^3.0.3",
+    "@graphql-codegen/typescript-operations": "^3.0.3",
+    "@graphql-codegen/typescript-react-query": "^4.1.0",
+    "@graphql-codegen/typescript-urql": "^3.7.3",
+    "@graphql-codegen/urql-introspection": "^2.2.1",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/cookies": "^0.7.7",
+    "@types/http-proxy": "^1.17.10",
+    "@types/jsonwebtoken": "^9.0.1",
+    "@types/lodash": "^4.14.194"
   }
 }
