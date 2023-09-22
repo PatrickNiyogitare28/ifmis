@@ -1477,7 +1477,7 @@ export type CreateUserMutationVariables = Exact<{
 }>;
 
 
-export type CreateUserMutation = { __typename?: 'mutation_root', insert_User_one?: { __typename?: 'User', Id: any, Email: string, Phone: string, Role: string } | null };
+export type CreateUserMutation = { __typename?: 'mutation_root', insert_User_one?: { __typename?: 'User', Id: any, FullName: string, Email: string, Phone: string, Role: string, IsOrganization: boolean, IsActive: boolean } | null };
 
 export type GetUserWithEmailQueryVariables = Exact<{
   Email?: InputMaybe<Scalars['String']>;
@@ -1491,7 +1491,7 @@ export type GetUserForLoginQueryVariables = Exact<{
 }>;
 
 
-export type GetUserForLoginQuery = { __typename?: 'query_root', User: Array<{ __typename?: 'User', Id: any, Email: string, Password: string, Phone: string, Role: string, IsOrganization: boolean, IsActive: boolean }>, User_aggregate: { __typename?: 'User_aggregate', aggregate?: { __typename?: 'User_aggregate_fields', count: number } | null } };
+export type GetUserForLoginQuery = { __typename?: 'query_root', User: Array<{ __typename?: 'User', Id: any, Email: string, FullName: string, Password: string, Phone: string, Role: string, IsOrganization: boolean, IsActive: boolean }>, User_aggregate: { __typename?: 'User_aggregate', aggregate?: { __typename?: 'User_aggregate_fields', count: number } | null } };
 
 
 export const CreateUserDocument = `
@@ -1500,9 +1500,12 @@ export const CreateUserDocument = `
     object: {FullName: $FullName, Email: $Email, Phone: $Phone, Password: $Password, IsActive: $IsActive, IsOrganization: $IsOrganization, Role: $Role}
   ) {
     Id
+    FullName
     Email
     Phone
     Role
+    IsOrganization
+    IsActive
   }
 }
     `;
@@ -1567,6 +1570,7 @@ export const GetUserForLoginDocument = `
   User(where: {Email: {_eq: $Email}}) {
     Id
     Email
+    FullName
     Password
     Phone
     Role

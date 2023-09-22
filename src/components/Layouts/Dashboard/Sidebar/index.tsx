@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import React from 'react';
 import MenuHandler from './MenuHandler';
+import { TSessionUser } from '@/types/user';
 
-export default function Sidebar(){
+export default function Sidebar({User}: {User: TSessionUser}){
     return (
         <div className='h-full bg-dashboard w-full p-4'>
             <div className='flex-col h-full flex justify-between'>

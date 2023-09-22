@@ -2,6 +2,7 @@ query getUserForLogin($Email: String) {
   User(where: {Email: {_eq: $Email}}) {
     Id
     Email
+    FullName
     Password
     Phone
     Role

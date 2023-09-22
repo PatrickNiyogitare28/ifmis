@@ -1,11 +1,12 @@
 import Dashboard from '@/components/Layouts/Dashboard';
 import AdminStatistics from '@/components/Statistics';
 import AdminUsers from '@/components/Users/AdminUsers';
+import { TSessionUser } from '@/types/user';
 import React from 'react';
 
-export default function Admin(){
+export default function Admin({User}: {User: TSessionUser}){
     return (
-       <Dashboard role={'ADMIN'}>
+       <Dashboard User={User}>
            <div>
             <AdminStatistics />
             <AdminUsers />

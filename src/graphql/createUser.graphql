@@ -1,8 +1,11 @@
 mutation createUser($FullName: String, $Email: String, $Phone: String,$Password: String, $IsActive: Boolean, $IsOrganization: Boolean, $Role: String) {
   insert_User_one(object: {FullName: $FullName, Email: $Email, Phone: $Phone, Password: $Password, IsActive: $IsActive, IsOrganization: $IsOrganization, Role: $Role}){
     Id
+    FullName
     Email
     Phone
     Role
+    IsOrganization
+    IsActive
   }
 }
