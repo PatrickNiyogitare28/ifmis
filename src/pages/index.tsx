@@ -6,7 +6,9 @@ import getSessionUser from '@/utils/get-user';
 import Admin from './admin';
 import Account from './account';
 import { TSessionUser } from '@/types/user';
+import { useRouter } from 'next/router';
 export default function Home(props:any) {
+  const router = useRouter();
   const SessionUser= props.SessionUser as TSessionUser;
 
   if(SessionUser.Role === 'STANDARD USER'){

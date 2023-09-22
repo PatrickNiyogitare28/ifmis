@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import UserTable from '../Elements/Tables/Users';
 import users from '@/lib/users';
 import {BiPlus} from 'react-icons/bi';
+import {Toaster} from 'react-hot-toast';
 import Modal from '../Modal';
 import AddUserForm from '../Forms/User/AddUser';
 
@@ -9,6 +10,7 @@ export default function AdminUsers () {
     const [showModal, setShowModal] = useState<boolean>(false);
     return (
         <>
+        <Toaster />
         <div className='p-6'>
             <div className='w-full flex'>
                 <button className='bg-primary flex gap-2 items-center px-6 rounded-xl py-2 ml-auto' onClick={() => setShowModal(true)}>
@@ -22,7 +24,7 @@ export default function AdminUsers () {
         </div>
         {showModal &&
           <Modal title='ADD USER' onClose={() => setShowModal(false)}>
-            <AddUserForm />
+            <AddUserForm onClose={() => setShowModal(false)} />
           </Modal>
         }
         </>

@@ -5,25 +5,25 @@ import { CreateUserMutationVariables } from '@/generated/graphql';
 import { hashPassword } from '@/utils/hash-password';
 import {toast} from 'react-hot-toast';
 import axiosInstance from '@/lib/axios';
-import { useRouter } from 'next/router';
 
-export default function useSignUp(){
+export default function useAddUser({onClose} : {onClose: () => void;}){
     const [loading, setLoading] = useState(false)
-    const router = useRouter();
     const initialValues = {
         FullName: '',
         Email: '',
         Phone: '',
-        Password: ''
+        Password: '',
+        Role: ''
     }
     const validationSchema = Yup.object().shape({
         FullName: Yup.string().required("Full name is required"),
         Email: Yup.string().email().required("Email is required"),
         Phone: Yup.string().required("Phone number is required"),
-        Password: Yup.string().min(6, "Password should be alteast 8 chars").required("Password is required")
+        Password: Yup.string().min(6, "Default Password should be alteast 8 chars").required("Password is required"),
+        Role: Yup.string().required("Role is required")
     })
 
-    const {errors, touched, getFieldProps, handleSubmit, values, resetForm} = useFormik({
+    const {errors, touched, getFieldProps, handleSubmit, values, resetForm, setFieldValue} = useFormik({
         initialValues,
         validationSchema,
         onSubmit: (_) => {
@@ -46,21 +46,21 @@ export default function useSignUp(){
         Email: values.Email,
         Phone: values.Phone,
         Password: await hashPassword(values.Password),
-        IsActive: false,
-        Role: 'STANDARD USER',
-        IsOrganization: false
+        IsActive: true,
+        Role: values.Role,
+        IsOrganization: false,
       }
       axiosInstance.post('/auth/signup',NewUserDto)
       .then(() => {
         setLoading(false);
-        toast.success("Successfully registered")
-        router.replace('/auth/login')
+        toast.success("User registered successfully")
         resetForm();
+        onClose();
       })
       .catch((error: any) => {
         console.log(error);
         setLoading(false);
-        return toast.error("Registration failed, an error occurred.") 
+        return toast.error("User Registration failed, an error occurred.") 
       })
       
     }
@@ -72,6 +72,7 @@ export default function useSignUp(){
         handleSubmit,
         values,
         loading,
-        onSubmit
+        onSubmit,
+        setFieldValue
     }
 }
