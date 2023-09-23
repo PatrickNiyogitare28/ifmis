@@ -1,4 +1,4 @@
-import IntegrationTypes from '@/components/IntegrationTypes';
+import IntegrationTypes from '@/components/UserMessages';
 import Dashboard from '@/components/Layouts/Dashboard';
 import React from 'react';
 

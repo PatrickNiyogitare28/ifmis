@@ -274,16 +274,55 @@ export type Boolean_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['Boolean']>>;
 };
 
+/** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
+export type Int_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['Int']>;
+  _gt?: InputMaybe<Scalars['Int']>;
+  _gte?: InputMaybe<Scalars['Int']>;
+  _in?: InputMaybe<Array<Scalars['Int']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['Int']>;
+  _lte?: InputMaybe<Scalars['Int']>;
+  _neq?: InputMaybe<Scalars['Int']>;
+  _nin?: InputMaybe<Array<Scalars['Int']>>;
+};
+
 /** The messages entity */
 export type Message = {
   __typename?: 'Message';
   CreatedAt: Scalars['timestamptz'];
   Id: Scalars['uuid'];
   Message: Scalars['String'];
+  /** An array relationship */
+  MessageReplies: Array<MessageReply>;
+  /** An aggregate relationship */
+  MessageReplies_aggregate: MessageReply_Aggregate;
   Status: Scalars['String'];
   Type: Scalars['String'];
   UpdatedAt: Scalars['timestamptz'];
+  /** An object relationship */
+  User: User;
   UserId: Scalars['uuid'];
+};
+
+
+/** The messages entity */
+export type MessageMessageRepliesArgs = {
+  distinct_on?: InputMaybe<Array<MessageReply_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<MessageReply_Order_By>>;
+  where?: InputMaybe<MessageReply_Bool_Exp>;
+};
+
+
+/** The messages entity */
+export type MessageMessageReplies_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<MessageReply_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<MessageReply_Order_By>>;
+  where?: InputMaybe<MessageReply_Bool_Exp>;
 };
 
 /** The messages replies entity */
@@ -304,6 +343,17 @@ export type MessageReply_Aggregate = {
   nodes: Array<MessageReply>;
 };
 
+export type MessageReply_Aggregate_Bool_Exp = {
+  count?: InputMaybe<MessageReply_Aggregate_Bool_Exp_Count>;
+};
+
+export type MessageReply_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<MessageReply_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<MessageReply_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
 /** aggregate fields of "MessageReply" */
 export type MessageReply_Aggregate_Fields = {
   __typename?: 'MessageReply_aggregate_fields';
@@ -317,6 +367,20 @@ export type MessageReply_Aggregate_Fields = {
 export type MessageReply_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<MessageReply_Select_Column>>;
   distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "MessageReply" */
+export type MessageReply_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<MessageReply_Max_Order_By>;
+  min?: InputMaybe<MessageReply_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "MessageReply" */
+export type MessageReply_Arr_Rel_Insert_Input = {
+  data: Array<MessageReply_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<MessageReply_On_Conflict>;
 };
 
 /** Boolean expression to filter rows from the table "MessageReply". All fields are combined with a logical 'AND'. */
@@ -359,6 +423,16 @@ export type MessageReply_Max_Fields = {
   User?: Maybe<Scalars['uuid']>;
 };
 
+/** order by max() on columns of table "MessageReply" */
+export type MessageReply_Max_Order_By = {
+  CreatedAt?: InputMaybe<Order_By>;
+  Id?: InputMaybe<Order_By>;
+  Message?: InputMaybe<Order_By>;
+  Reply?: InputMaybe<Order_By>;
+  UpdatedAt?: InputMaybe<Order_By>;
+  User?: InputMaybe<Order_By>;
+};
+
 /** aggregate min on columns */
 export type MessageReply_Min_Fields = {
   __typename?: 'MessageReply_min_fields';
@@ -368,6 +442,16 @@ export type MessageReply_Min_Fields = {
   Reply?: Maybe<Scalars['String']>;
   UpdatedAt?: Maybe<Scalars['timestamptz']>;
   User?: Maybe<Scalars['uuid']>;
+};
+
+/** order by min() on columns of table "MessageReply" */
+export type MessageReply_Min_Order_By = {
+  CreatedAt?: InputMaybe<Order_By>;
+  Id?: InputMaybe<Order_By>;
+  Message?: InputMaybe<Order_By>;
+  Reply?: InputMaybe<Order_By>;
+  UpdatedAt?: InputMaybe<Order_By>;
+  User?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "MessageReply" */
@@ -495,9 +579,12 @@ export type Message_Bool_Exp = {
   CreatedAt?: InputMaybe<Timestamptz_Comparison_Exp>;
   Id?: InputMaybe<Uuid_Comparison_Exp>;
   Message?: InputMaybe<String_Comparison_Exp>;
+  MessageReplies?: InputMaybe<MessageReply_Bool_Exp>;
+  MessageReplies_aggregate?: InputMaybe<MessageReply_Aggregate_Bool_Exp>;
   Status?: InputMaybe<String_Comparison_Exp>;
   Type?: InputMaybe<String_Comparison_Exp>;
   UpdatedAt?: InputMaybe<Timestamptz_Comparison_Exp>;
+  User?: InputMaybe<User_Bool_Exp>;
   UserId?: InputMaybe<Uuid_Comparison_Exp>;
   _and?: InputMaybe<Array<Message_Bool_Exp>>;
   _not?: InputMaybe<Message_Bool_Exp>;
@@ -515,9 +602,11 @@ export type Message_Insert_Input = {
   CreatedAt?: InputMaybe<Scalars['timestamptz']>;
   Id?: InputMaybe<Scalars['uuid']>;
   Message?: InputMaybe<Scalars['String']>;
+  MessageReplies?: InputMaybe<MessageReply_Arr_Rel_Insert_Input>;
   Status?: InputMaybe<Scalars['String']>;
   Type?: InputMaybe<Scalars['String']>;
   UpdatedAt?: InputMaybe<Scalars['timestamptz']>;
+  User?: InputMaybe<User_Obj_Rel_Insert_Input>;
   UserId?: InputMaybe<Scalars['uuid']>;
 };
 
@@ -566,9 +655,11 @@ export type Message_Order_By = {
   CreatedAt?: InputMaybe<Order_By>;
   Id?: InputMaybe<Order_By>;
   Message?: InputMaybe<Order_By>;
+  MessageReplies_aggregate?: InputMaybe<MessageReply_Aggregate_Order_By>;
   Status?: InputMaybe<Order_By>;
   Type?: InputMaybe<Order_By>;
   UpdatedAt?: InputMaybe<Order_By>;
+  User?: InputMaybe<User_Order_By>;
   UserId?: InputMaybe<Order_By>;
 };
 
@@ -1513,6 +1604,15 @@ export type AddAppointmentMutationVariables = Exact<{
 
 export type AddAppointmentMutation = { __typename?: 'mutation_root', insert_Appointment_one?: { __typename?: 'Appointment', Id: any, Message: string, UserId: any, Type: string, Title: string, CreatedAt?: any | null } | null };
 
+export type CreateMessageMutationVariables = Exact<{
+  Type?: InputMaybe<Scalars['String']>;
+  Message?: InputMaybe<Scalars['String']>;
+  UserId?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type CreateMessageMutation = { __typename?: 'mutation_root', insert_Message_one?: { __typename?: 'Message', Id: any, Type: string, Message: string, UserId: any, Status: string } | null };
+
 export type CreateUserMutationVariables = Exact<{
   FullName?: InputMaybe<Scalars['String']>;
   Email?: InputMaybe<Scalars['String']>;
@@ -1583,6 +1683,32 @@ export const useAddAppointmentMutation = <
     useMutation<AddAppointmentMutation, TError, AddAppointmentMutationVariables, TContext>(
       ['AddAppointment'],
       (variables?: AddAppointmentMutationVariables) => fetcher<AddAppointmentMutation, AddAppointmentMutationVariables>(client, AddAppointmentDocument, variables, headers)(),
+      options
+    );
+export const CreateMessageDocument = `
+    mutation createMessage($Type: String, $Message: String, $UserId: uuid) {
+  insert_Message_one(
+    object: {Type: $Type, Message: $Message, Status: "NOT REPLIED", UserId: $UserId}
+  ) {
+    Id
+    Type
+    Message
+    UserId
+    Status
+  }
+}
+    `;
+export const useCreateMessageMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<CreateMessageMutation, TError, CreateMessageMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<CreateMessageMutation, TError, CreateMessageMutationVariables, TContext>(
+      ['createMessage'],
+      (variables?: CreateMessageMutationVariables) => fetcher<CreateMessageMutation, CreateMessageMutationVariables>(client, CreateMessageDocument, variables, headers)(),
       options
     );
 export const CreateUserDocument = `

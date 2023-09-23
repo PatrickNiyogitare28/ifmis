@@ -1,0 +1,14 @@
+mutation createMessage($Type: String, $Message: String, $UserId: uuid){
+  insert_Message_one(object:{
+    Type: $Type,
+    Message: $Message
+    Status: "NOT REPLIED",
+    UserId: $UserId
+  }){
+    Id
+    Type
+    Message
+    UserId
+    Status
+  }
+}
