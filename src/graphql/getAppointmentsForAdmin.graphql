@@ -1,0 +1,18 @@
+query getAppointmentsForAdmin{
+  Appointment{
+    Id
+    Title
+    Message
+    Time
+    Type
+    AprovalStatus
+    Status
+    UserId
+    User{
+      Id
+      FullName
+      Email
+      Phone
+    }
+  }
+}

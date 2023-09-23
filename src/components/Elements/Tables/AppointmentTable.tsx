@@ -1,4 +1,4 @@
-import { Appointment } from '@/types/appointment';
+import { Appointment } from '@/generated/graphql';
 import React from 'react';
 import {BiPen} from 'react-icons/bi';
 
@@ -15,6 +15,7 @@ const AppointmentsTable = ({ appointments }: AppointmentsTableProps) => {
             <th className="border bg-gray-200">FULL NAME</th>
             <th className="border bg-gray-200">PHONE</th>
             <th className="border bg-gray-200">EMAIL</th>
+            <th className="border bg-gray-200">APPOINTMENT</th>
             <th className="border bg-gray-200">APPOINTMENT CATEGORY</th>
             <th className="border bg-gray-200">TIME</th>
             <th className="border bg-gray-200">STATUS</th>
@@ -27,8 +28,20 @@ const AppointmentsTable = ({ appointments }: AppointmentsTableProps) => {
               <td className="border p-2">{appointment.User.FullName}</td>
               <td className="border p-2">{appointment.User.Phone}</td>
               <td className="border p-2">{appointment.User.Email}</td>
-              <td className="border p-2">{appointment.AppointmentType}</td>
-              <td className="border p-2">{new Date(appointment.Time).toLocaleDateString()}</td>
+              <td className="border p-2">{appointment.Title}</td>
+              <td className="border p-2">{appointment.Type}</td>
+              {/* <td className="border p-2">{new Date(appointment.Time as string).toLocaleDateString()}</td> */}
+              <td className="border p-2">
+                {new Date(appointment.Time as string).toLocaleString([], {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit',
+                  timeZoneName: 'short',
+                })}
+              </td>
               <td className='border-[0.5px] text-center'>
                 <label className={`p-2 rounded-full  text-[10px]  ${appointment.Status === 'APPROVED' ? 'bg-green-200 ' : appointment.Status === 'REJECTED' ? 'bg-red-200 ' : 'bg-yellow-200'}`}>{appointment.Status}</label>
               </td>

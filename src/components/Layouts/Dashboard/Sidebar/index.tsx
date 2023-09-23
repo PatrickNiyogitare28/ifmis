@@ -2,8 +2,10 @@ import Image from 'next/image';
 import React from 'react';
 import {AdminMenuHandler, StandardUserMenuHandler} from './MenuHandler';
 import { TSessionUser } from '@/types/user';
+import useLogout from './hooks/useLogout';
 
 export default function Sidebar({User}: {User: TSessionUser}){
+    const {handleLogout} = useLogout();
     return (
         <div className='h-full bg-dashboard w-full p-4'>
             <div className='flex-col h-full flex justify-between'>
@@ -20,7 +22,7 @@ export default function Sidebar({User}: {User: TSessionUser}){
             </div>
             </div>
             <div className='w-full flex justify-around'>
-                <button className='bg-red-100 rounded-full p-2 text-sm px-6'>LOGOUT</button>
+                <button className='bg-red-100 rounded-full p-2 text-sm px-6' onClick={handleLogout}>LOGOUT</button>
             </div>
             </div>
         </div> 

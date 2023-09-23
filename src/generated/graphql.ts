@@ -1531,6 +1531,11 @@ export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAllUsersQuery = { __typename?: 'query_root', User: Array<{ __typename?: 'User', Id: any, FullName: string, Email: string, Phone: string, Role: string, IsActive: boolean, IsOrganization: boolean, CreatedAt?: any | null, UpdatedAt?: any | null }> };
 
+export type GetAppointmentsForAdminQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAppointmentsForAdminQuery = { __typename?: 'query_root', Appointment: Array<{ __typename?: 'Appointment', Id: any, Title: string, Message: string, Time?: string | null, Type: string, AprovalStatus?: string | null, Status?: string | null, UserId: any, User: { __typename?: 'User', Id: any, FullName: string, Email: string, Phone: string } }> };
+
 export type GetAppointmentsForUserQueryVariables = Exact<{
   UserId?: InputMaybe<Scalars['uuid']>;
 }>;
@@ -1650,6 +1655,56 @@ export const useInfiniteGetAllUsersQuery = <
     useInfiniteQuery<GetAllUsersQuery, TError, TData>(
       variables === undefined ? ['getAllUsers.infinite'] : ['getAllUsers.infinite', variables],
       (metaData) => fetcher<GetAllUsersQuery, GetAllUsersQueryVariables>(client, GetAllUsersDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );
+
+export const GetAppointmentsForAdminDocument = `
+    query getAppointmentsForAdmin {
+  Appointment {
+    Id
+    Title
+    Message
+    Time
+    Type
+    AprovalStatus
+    Status
+    UserId
+    User {
+      Id
+      FullName
+      Email
+      Phone
+    }
+  }
+}
+    `;
+export const useGetAppointmentsForAdminQuery = <
+      TData = GetAppointmentsForAdminQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: GetAppointmentsForAdminQueryVariables,
+      options?: UseQueryOptions<GetAppointmentsForAdminQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetAppointmentsForAdminQuery, TError, TData>(
+      variables === undefined ? ['getAppointmentsForAdmin'] : ['getAppointmentsForAdmin', variables],
+      fetcher<GetAppointmentsForAdminQuery, GetAppointmentsForAdminQueryVariables>(client, GetAppointmentsForAdminDocument, variables, headers),
+      options
+    );
+export const useInfiniteGetAppointmentsForAdminQuery = <
+      TData = GetAppointmentsForAdminQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof GetAppointmentsForAdminQueryVariables,
+      client: GraphQLClient,
+      variables?: GetAppointmentsForAdminQueryVariables,
+      options?: UseInfiniteQueryOptions<GetAppointmentsForAdminQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<GetAppointmentsForAdminQuery, TError, TData>(
+      variables === undefined ? ['getAppointmentsForAdmin.infinite'] : ['getAppointmentsForAdmin.infinite', variables],
+      (metaData) => fetcher<GetAppointmentsForAdminQuery, GetAppointmentsForAdminQueryVariables>(client, GetAppointmentsForAdminDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
       options
     );
 

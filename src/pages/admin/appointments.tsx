@@ -1,4 +1,4 @@
-import Appointments from '@/components/Appointments';
+import Appointments from '@/components/AdminAppointments';
 import Dashboard from '@/components/Layouts/Dashboard';
 import { TSessionUser } from '@/types/user';
 import getSessionUser from '@/utils/get-user';

@@ -1523,6 +1523,11 @@ export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAllUsersQuery = { __typename?: 'query_root', User: Array<{ __typename?: 'User', Id: any, FullName: string, Email: string, Phone: string, Role: string, IsActive: boolean, IsOrganization: boolean, CreatedAt?: any | null, UpdatedAt?: any | null }> };
 
+export type GetAppointmentsForAdminQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAppointmentsForAdminQuery = { __typename?: 'query_root', Appointment: Array<{ __typename?: 'Appointment', Id: any, Title: string, Message: string, Time?: string | null, Type: string, AprovalStatus?: string | null, Status?: string | null, UserId: any, User: { __typename?: 'User', Id: any, FullName: string, Email: string, Phone: string } }> };
+
 export type GetAppointmentsForUserQueryVariables = Exact<{
   UserId?: InputMaybe<Scalars['uuid']>;
 }>;
@@ -1589,6 +1594,26 @@ export const GetAllUsersDocument = gql`
   }
 }
     `;
+export const GetAppointmentsForAdminDocument = gql`
+    query getAppointmentsForAdmin {
+  Appointment {
+    Id
+    Title
+    Message
+    Time
+    Type
+    AprovalStatus
+    Status
+    UserId
+    User {
+      Id
+      FullName
+      Email
+      Phone
+    }
+  }
+}
+    `;
 export const GetAppointmentsForUserDocument = gql`
     query getAppointmentsForUser($UserId: uuid) {
   Appointment(where: {UserId: {_eq: $UserId}}) {
@@ -1651,6 +1676,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getAllUsers(variables?: GetAllUsersQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetAllUsersQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetAllUsersQuery>(GetAllUsersDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAllUsers', 'query');
+    },
+    getAppointmentsForAdmin(variables?: GetAppointmentsForAdminQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetAppointmentsForAdminQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetAppointmentsForAdminQuery>(GetAppointmentsForAdminDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAppointmentsForAdmin', 'query');
     },
     getAppointmentsForUser(variables?: GetAppointmentsForUserQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetAppointmentsForUserQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetAppointmentsForUserQuery>(GetAppointmentsForUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAppointmentsForUser', 'query');

@@ -3,10 +3,10 @@ import axiosInstance from "@/lib/axios"
 import { TSessionUser } from "@/types/user"
 import { useEffect, useState } from "react"
 
-export default function useFetchUserAppointments({User}: {User: TSessionUser}){
+export default function useFetchAdminAppointments({User}: {User: TSessionUser}){
     const [appointments, setAppointments] = useState<Appointment[]>([])
     const fetchAppointments = async() => {
-        await axiosInstance.get(`/appointments/user/${User.Id}`)
+        await axiosInstance.get(`/appointments/admin`)
         .then((data) => {
             console.log("axios success")
             console.log(data.data.data);
