@@ -1,0 +1,12 @@
+query getAppointmentsForUser($UserId: uuid){
+  Appointment(where: {UserId: {_eq: $UserId}}){
+    Id
+    Title
+    Message
+    Type
+    Time
+    AprovalStatus
+    Status
+    UserId
+  }
+}

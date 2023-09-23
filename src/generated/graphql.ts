@@ -29,13 +29,17 @@ export type Scalars = {
 /** The Appointments entity */
 export type Appointment = {
   __typename?: 'Appointment';
+  AprovalStatus?: Maybe<Scalars['String']>;
   CreatedAt?: Maybe<Scalars['timestamptz']>;
   Id: Scalars['uuid'];
   Message: Scalars['String'];
-  Time: Scalars['timestamptz'];
+  Status?: Maybe<Scalars['String']>;
+  Time?: Maybe<Scalars['String']>;
   Title: Scalars['String'];
   Type: Scalars['String'];
   UpdatedAt?: Maybe<Scalars['timestamptz']>;
+  /** An object relationship */
+  User: User;
   UserId: Scalars['uuid'];
 };
 
@@ -63,13 +67,16 @@ export type Appointment_Aggregate_FieldsCountArgs = {
 
 /** Boolean expression to filter rows from the table "Appointment". All fields are combined with a logical 'AND'. */
 export type Appointment_Bool_Exp = {
+  AprovalStatus?: InputMaybe<String_Comparison_Exp>;
   CreatedAt?: InputMaybe<Timestamptz_Comparison_Exp>;
   Id?: InputMaybe<Uuid_Comparison_Exp>;
   Message?: InputMaybe<String_Comparison_Exp>;
-  Time?: InputMaybe<Timestamptz_Comparison_Exp>;
+  Status?: InputMaybe<String_Comparison_Exp>;
+  Time?: InputMaybe<String_Comparison_Exp>;
   Title?: InputMaybe<String_Comparison_Exp>;
   Type?: InputMaybe<String_Comparison_Exp>;
   UpdatedAt?: InputMaybe<Timestamptz_Comparison_Exp>;
+  User?: InputMaybe<User_Bool_Exp>;
   UserId?: InputMaybe<Uuid_Comparison_Exp>;
   _and?: InputMaybe<Array<Appointment_Bool_Exp>>;
   _not?: InputMaybe<Appointment_Bool_Exp>;
@@ -84,23 +91,28 @@ export enum Appointment_Constraint {
 
 /** input type for inserting data into table "Appointment" */
 export type Appointment_Insert_Input = {
+  AprovalStatus?: InputMaybe<Scalars['String']>;
   CreatedAt?: InputMaybe<Scalars['timestamptz']>;
   Id?: InputMaybe<Scalars['uuid']>;
   Message?: InputMaybe<Scalars['String']>;
-  Time?: InputMaybe<Scalars['timestamptz']>;
+  Status?: InputMaybe<Scalars['String']>;
+  Time?: InputMaybe<Scalars['String']>;
   Title?: InputMaybe<Scalars['String']>;
   Type?: InputMaybe<Scalars['String']>;
   UpdatedAt?: InputMaybe<Scalars['timestamptz']>;
+  User?: InputMaybe<User_Obj_Rel_Insert_Input>;
   UserId?: InputMaybe<Scalars['uuid']>;
 };
 
 /** aggregate max on columns */
 export type Appointment_Max_Fields = {
   __typename?: 'Appointment_max_fields';
+  AprovalStatus?: Maybe<Scalars['String']>;
   CreatedAt?: Maybe<Scalars['timestamptz']>;
   Id?: Maybe<Scalars['uuid']>;
   Message?: Maybe<Scalars['String']>;
-  Time?: Maybe<Scalars['timestamptz']>;
+  Status?: Maybe<Scalars['String']>;
+  Time?: Maybe<Scalars['String']>;
   Title?: Maybe<Scalars['String']>;
   Type?: Maybe<Scalars['String']>;
   UpdatedAt?: Maybe<Scalars['timestamptz']>;
@@ -110,10 +122,12 @@ export type Appointment_Max_Fields = {
 /** aggregate min on columns */
 export type Appointment_Min_Fields = {
   __typename?: 'Appointment_min_fields';
+  AprovalStatus?: Maybe<Scalars['String']>;
   CreatedAt?: Maybe<Scalars['timestamptz']>;
   Id?: Maybe<Scalars['uuid']>;
   Message?: Maybe<Scalars['String']>;
-  Time?: Maybe<Scalars['timestamptz']>;
+  Status?: Maybe<Scalars['String']>;
+  Time?: Maybe<Scalars['String']>;
   Title?: Maybe<Scalars['String']>;
   Type?: Maybe<Scalars['String']>;
   UpdatedAt?: Maybe<Scalars['timestamptz']>;
@@ -138,13 +152,16 @@ export type Appointment_On_Conflict = {
 
 /** Ordering options when selecting data from "Appointment". */
 export type Appointment_Order_By = {
+  AprovalStatus?: InputMaybe<Order_By>;
   CreatedAt?: InputMaybe<Order_By>;
   Id?: InputMaybe<Order_By>;
   Message?: InputMaybe<Order_By>;
+  Status?: InputMaybe<Order_By>;
   Time?: InputMaybe<Order_By>;
   Title?: InputMaybe<Order_By>;
   Type?: InputMaybe<Order_By>;
   UpdatedAt?: InputMaybe<Order_By>;
+  User?: InputMaybe<User_Order_By>;
   UserId?: InputMaybe<Order_By>;
 };
 
@@ -156,11 +173,15 @@ export type Appointment_Pk_Columns_Input = {
 /** select columns of table "Appointment" */
 export enum Appointment_Select_Column {
   /** column name */
+  AprovalStatus = 'AprovalStatus',
+  /** column name */
   CreatedAt = 'CreatedAt',
   /** column name */
   Id = 'Id',
   /** column name */
   Message = 'Message',
+  /** column name */
+  Status = 'Status',
   /** column name */
   Time = 'Time',
   /** column name */
@@ -175,10 +196,12 @@ export enum Appointment_Select_Column {
 
 /** input type for updating data in table "Appointment" */
 export type Appointment_Set_Input = {
+  AprovalStatus?: InputMaybe<Scalars['String']>;
   CreatedAt?: InputMaybe<Scalars['timestamptz']>;
   Id?: InputMaybe<Scalars['uuid']>;
   Message?: InputMaybe<Scalars['String']>;
-  Time?: InputMaybe<Scalars['timestamptz']>;
+  Status?: InputMaybe<Scalars['String']>;
+  Time?: InputMaybe<Scalars['String']>;
   Title?: InputMaybe<Scalars['String']>;
   Type?: InputMaybe<Scalars['String']>;
   UpdatedAt?: InputMaybe<Scalars['timestamptz']>;
@@ -195,10 +218,12 @@ export type Appointment_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Appointment_Stream_Cursor_Value_Input = {
+  AprovalStatus?: InputMaybe<Scalars['String']>;
   CreatedAt?: InputMaybe<Scalars['timestamptz']>;
   Id?: InputMaybe<Scalars['uuid']>;
   Message?: InputMaybe<Scalars['String']>;
-  Time?: InputMaybe<Scalars['timestamptz']>;
+  Status?: InputMaybe<Scalars['String']>;
+  Time?: InputMaybe<Scalars['String']>;
   Title?: InputMaybe<Scalars['String']>;
   Type?: InputMaybe<Scalars['String']>;
   UpdatedAt?: InputMaybe<Scalars['timestamptz']>;
@@ -208,11 +233,15 @@ export type Appointment_Stream_Cursor_Value_Input = {
 /** update columns of table "Appointment" */
 export enum Appointment_Update_Column {
   /** column name */
+  AprovalStatus = 'AprovalStatus',
+  /** column name */
   CreatedAt = 'CreatedAt',
   /** column name */
   Id = 'Id',
   /** column name */
   Message = 'Message',
+  /** column name */
+  Status = 'Status',
   /** column name */
   Time = 'Time',
   /** column name */
@@ -763,6 +792,13 @@ export type User_Mutation_Response = {
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
   returning: Array<User>;
+};
+
+/** input type for inserting object relation for remote table "User" */
+export type User_Obj_Rel_Insert_Input = {
+  data: User_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<User_On_Conflict>;
 };
 
 /** on_conflict condition type for table "User" */
@@ -1466,6 +1502,17 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']>>;
 };
 
+export type AddAppointmentMutationVariables = Exact<{
+  Title?: InputMaybe<Scalars['String']>;
+  Message?: InputMaybe<Scalars['String']>;
+  Time?: InputMaybe<Scalars['String']>;
+  UserId?: InputMaybe<Scalars['uuid']>;
+  Type?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type AddAppointmentMutation = { __typename?: 'mutation_root', insert_Appointment_one?: { __typename?: 'Appointment', Id: any, Message: string, UserId: any, Type: string, Title: string, CreatedAt?: any | null } | null };
+
 export type CreateUserMutationVariables = Exact<{
   FullName?: InputMaybe<Scalars['String']>;
   Email?: InputMaybe<Scalars['String']>;
@@ -1484,6 +1531,13 @@ export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAllUsersQuery = { __typename?: 'query_root', User: Array<{ __typename?: 'User', Id: any, FullName: string, Email: string, Phone: string, Role: string, IsActive: boolean, IsOrganization: boolean, CreatedAt?: any | null, UpdatedAt?: any | null }> };
 
+export type GetAppointmentsForUserQueryVariables = Exact<{
+  UserId?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type GetAppointmentsForUserQuery = { __typename?: 'query_root', Appointment: Array<{ __typename?: 'Appointment', Id: any, Title: string, Message: string, Type: string, Time?: string | null, AprovalStatus?: string | null, Status?: string | null, UserId: any }> };
+
 export type GetUserWithEmailQueryVariables = Exact<{
   Email?: InputMaybe<Scalars['String']>;
 }>;
@@ -1499,6 +1553,33 @@ export type GetUserForLoginQueryVariables = Exact<{
 export type GetUserForLoginQuery = { __typename?: 'query_root', User: Array<{ __typename?: 'User', Id: any, Email: string, FullName: string, Password: string, Phone: string, Role: string, IsOrganization: boolean, IsActive: boolean }>, User_aggregate: { __typename?: 'User_aggregate', aggregate?: { __typename?: 'User_aggregate_fields', count: number } | null } };
 
 
+export const AddAppointmentDocument = `
+    mutation AddAppointment($Title: String, $Message: String, $Time: String, $UserId: uuid, $Type: String) {
+  insert_Appointment_one(
+    object: {Message: $Message, Title: $Title, Type: $Type, Time: $Time, UserId: $UserId}
+  ) {
+    Id
+    Message
+    UserId
+    Type
+    Title
+    CreatedAt
+  }
+}
+    `;
+export const useAddAppointmentMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<AddAppointmentMutation, TError, AddAppointmentMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<AddAppointmentMutation, TError, AddAppointmentMutationVariables, TContext>(
+      ['AddAppointment'],
+      (variables?: AddAppointmentMutationVariables) => fetcher<AddAppointmentMutation, AddAppointmentMutationVariables>(client, AddAppointmentDocument, variables, headers)(),
+      options
+    );
 export const CreateUserDocument = `
     mutation createUser($FullName: String, $Email: String, $Phone: String, $Password: String, $IsActive: Boolean, $IsOrganization: Boolean, $Role: String) {
   insert_User_one(
@@ -1569,6 +1650,50 @@ export const useInfiniteGetAllUsersQuery = <
     useInfiniteQuery<GetAllUsersQuery, TError, TData>(
       variables === undefined ? ['getAllUsers.infinite'] : ['getAllUsers.infinite', variables],
       (metaData) => fetcher<GetAllUsersQuery, GetAllUsersQueryVariables>(client, GetAllUsersDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );
+
+export const GetAppointmentsForUserDocument = `
+    query getAppointmentsForUser($UserId: uuid) {
+  Appointment(where: {UserId: {_eq: $UserId}}) {
+    Id
+    Title
+    Message
+    Type
+    Time
+    AprovalStatus
+    Status
+    UserId
+  }
+}
+    `;
+export const useGetAppointmentsForUserQuery = <
+      TData = GetAppointmentsForUserQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: GetAppointmentsForUserQueryVariables,
+      options?: UseQueryOptions<GetAppointmentsForUserQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetAppointmentsForUserQuery, TError, TData>(
+      variables === undefined ? ['getAppointmentsForUser'] : ['getAppointmentsForUser', variables],
+      fetcher<GetAppointmentsForUserQuery, GetAppointmentsForUserQueryVariables>(client, GetAppointmentsForUserDocument, variables, headers),
+      options
+    );
+export const useInfiniteGetAppointmentsForUserQuery = <
+      TData = GetAppointmentsForUserQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof GetAppointmentsForUserQueryVariables,
+      client: GraphQLClient,
+      variables?: GetAppointmentsForUserQueryVariables,
+      options?: UseInfiniteQueryOptions<GetAppointmentsForUserQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<GetAppointmentsForUserQuery, TError, TData>(
+      variables === undefined ? ['getAppointmentsForUser.infinite'] : ['getAppointmentsForUser.infinite', variables],
+      (metaData) => fetcher<GetAppointmentsForUserQuery, GetAppointmentsForUserQueryVariables>(client, GetAppointmentsForUserDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
       options
     );
 

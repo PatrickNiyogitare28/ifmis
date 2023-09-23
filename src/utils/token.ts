@@ -12,7 +12,12 @@ export const signRefreshToken = (data: any): string => {
   return token;
 };
 
-export const decodeToken = (token: string): string | JwtPayload => {
-  const decoded = jwt.verify(token, secret);
-  return decoded;
+export const decodeToken = (token: string): string | JwtPayload | false => {
+  try{
+    const decoded = jwt.verify(token, secret);
+    return decoded;
+  }
+  catch(e:any){
+    return false
+  }
 };

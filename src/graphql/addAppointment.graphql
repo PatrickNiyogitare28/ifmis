@@ -1,0 +1,11 @@
+mutation AddAppointment($Title: String, $Message: String, $Time: String, $UserId: uuid, $Type: String) {
+  insert_Appointment_one(object: {Message: $Message, Title: $Title, Type: $Type, Time: $Time, UserId: $UserId}){
+    Id
+    Message
+    UserId
+    Type
+    Title
+    CreatedAt
+    
+  }
+}

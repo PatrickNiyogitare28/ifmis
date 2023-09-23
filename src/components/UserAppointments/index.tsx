@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import {BiPlus} from 'react-icons/bi';
 import Modal from '../Modal';
-import APPOINTMENTS from '@/lib/appointments';
-import AddIntegrationRequestForm from '../Forms/AppointmentsForm';
-import AppointmentsTable from '../Elements/Tables/AppointmentTable';
+import AddAppointmentForm from '../Forms/AppointmentsForm';
+import { TSessionUser } from '@/types/user';
+import useFetchUserAppointments from './hooks/useAppointmentsFetch';
+import UserAppointmentsTable from '../Elements/Tables/UserAppointmentsTable';
 
-export default function AppointmentsList () {
+export default function UserAppointmentsList ({User}: {User: TSessionUser}) {
     const [showModal, setShowModal] = useState<boolean>(false);
+    const {appointments, refetch} = useFetchUserAppointments({User});
     return (
         <>
         <div className='p-6'>
@@ -17,12 +19,12 @@ export default function AppointmentsList () {
                 </button>
             </div>
             <div className="mt-4">
-            <AppointmentsTable appointments={APPOINTMENTS} />
+            <UserAppointmentsTable appointments={appointments} />
             </div>
         </div>
         {showModal &&
           <Modal title='ADD INTEGRATION REQUEST' onClose={() => setShowModal(false)}>
-            <AddIntegrationRequestForm />
+            <AddAppointmentForm User={User} onClose={() => {setShowModal(false); refetch()}} />
           </Modal>
         }
         </>

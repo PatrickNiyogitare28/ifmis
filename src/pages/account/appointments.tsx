@@ -1,15 +1,17 @@
-import Appointments from '@/components/Appointments';
 import Dashboard from '@/components/Layouts/Dashboard';
+import UserAppointmentsList from '@/components/UserAppointments';
 import { TSessionUser } from '@/types/user';
 import getSessionUser from '@/utils/get-user';
 import { GetServerSideProps } from 'next';
 import React from 'react';
+import { Toaster } from 'react-hot-toast';
 
 export default function AppointmentsPage(props: any){
     const SessionUser= props.SessionUser as TSessionUser;
     return (
        <Dashboard User={SessionUser}>
-            <Appointments />
+           <Toaster />
+            <UserAppointmentsList User={SessionUser}/>
        </Dashboard>
     )
 }

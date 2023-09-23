@@ -3,7 +3,7 @@ import MenuItem from './Menu';
 import {BiSolidDashboard, BiBox, BiListUl, BiGroup} from 'react-icons/bi';
 import useActiveRoute from './hooks/useActiveRoute';
 
-export default function MenuHandler(){
+export function AdminMenuHandler(){
     const {checkIsActiveRoute, onRoute} = useActiveRoute();
     return (
         <div className='mt-12'>
@@ -31,6 +31,33 @@ export default function MenuHandler(){
              icon={<BiGroup color={(checkIsActiveRoute("/admin/users", true)) ? 'white' : 'silver'} size={20} />}
              label='Users'
             />
+        </div>
+    )
+}
+
+export function StandardUserMenuHandler(){
+    const {checkIsActiveRoute, onRoute} = useActiveRoute();
+    return (
+        <div className='mt-12'>
+            <MenuItem 
+             onRoute={() => onRoute("/account")}
+             isActive={checkIsActiveRoute("/account", true)}
+             icon={<BiSolidDashboard color={(checkIsActiveRoute("/account", true)) ? 'white' : 'silver'} size={20} />}
+             label='Dashboard'
+            />
+            <MenuItem 
+             onRoute={() => onRoute("/account/appointments")}
+             isActive={checkIsActiveRoute("/account/appointments", true)}
+             icon={<BiBox color={(checkIsActiveRoute("/account/appointments", true)) ? 'white' : 'silver'} size={20} />}
+             label='Appointments'
+            />
+             <MenuItem 
+             onRoute={() => onRoute("/account/messages")}
+             isActive={checkIsActiveRoute("/account/messages", true)}
+             icon={<BiListUl color={(checkIsActiveRoute("/account/messages", true)) ? 'white' : 'silver'} size={20} />}
+             label='Messages'
+            />
+            
         </div>
     )
 }
