@@ -1635,6 +1635,13 @@ export type GetAppointmentsForUserQueryVariables = Exact<{
 
 export type GetAppointmentsForUserQuery = { __typename?: 'query_root', Appointment: Array<{ __typename?: 'Appointment', Id: any, Title: string, Message: string, Type: string, Time?: string | null, AprovalStatus?: string | null, Status?: string | null, UserId: any }> };
 
+export type GetMessagesForUserQueryVariables = Exact<{
+  UserId?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type GetMessagesForUserQuery = { __typename?: 'query_root', Message: Array<{ __typename?: 'Message', Id: any, Type: string, Message: string, CreatedAt: any, Status: string, MessageReplies: Array<{ __typename?: 'MessageReply', Id: any, Message: any }> }> };
+
 export type GetUserWithEmailQueryVariables = Exact<{
   Email?: InputMaybe<Scalars['String']>;
 }>;
@@ -1741,6 +1748,21 @@ export const GetAppointmentsForUserDocument = gql`
   }
 }
     `;
+export const GetMessagesForUserDocument = gql`
+    query getMessagesForUser($UserId: uuid) {
+  Message(where: {UserId: {_eq: $UserId}}) {
+    Id
+    Type
+    Message
+    CreatedAt
+    Status
+    MessageReplies {
+      Id
+      Message
+    }
+  }
+}
+    `;
 export const GetUserWithEmailDocument = gql`
     query getUserWithEmail($Email: String) {
   User(where: {Email: {_eq: $Email}}) {
@@ -1798,6 +1820,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getAppointmentsForUser(variables?: GetAppointmentsForUserQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetAppointmentsForUserQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetAppointmentsForUserQuery>(GetAppointmentsForUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAppointmentsForUser', 'query');
+    },
+    getMessagesForUser(variables?: GetMessagesForUserQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetMessagesForUserQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetMessagesForUserQuery>(GetMessagesForUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getMessagesForUser', 'query');
     },
     getUserWithEmail(variables?: GetUserWithEmailQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetUserWithEmailQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetUserWithEmailQuery>(GetUserWithEmailDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getUserWithEmail', 'query');

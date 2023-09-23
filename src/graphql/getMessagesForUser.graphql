@@ -1,0 +1,13 @@
+query getMessagesForUser($UserId: uuid){
+  Message(where: {UserId: {_eq: $UserId}}){
+    Id
+    Type
+    Message
+    CreatedAt
+    Status
+    MessageReplies{
+      Id
+      Message
+    }
+  }
+}

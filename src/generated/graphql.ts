@@ -1643,6 +1643,13 @@ export type GetAppointmentsForUserQueryVariables = Exact<{
 
 export type GetAppointmentsForUserQuery = { __typename?: 'query_root', Appointment: Array<{ __typename?: 'Appointment', Id: any, Title: string, Message: string, Type: string, Time?: string | null, AprovalStatus?: string | null, Status?: string | null, UserId: any }> };
 
+export type GetMessagesForUserQueryVariables = Exact<{
+  UserId?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type GetMessagesForUserQuery = { __typename?: 'query_root', Message: Array<{ __typename?: 'Message', Id: any, Type: string, Message: string, CreatedAt: any, Status: string, MessageReplies: Array<{ __typename?: 'MessageReply', Id: any, Message: any }> }> };
+
 export type GetUserWithEmailQueryVariables = Exact<{
   Email?: InputMaybe<Scalars['String']>;
 }>;
@@ -1875,6 +1882,51 @@ export const useInfiniteGetAppointmentsForUserQuery = <
     useInfiniteQuery<GetAppointmentsForUserQuery, TError, TData>(
       variables === undefined ? ['getAppointmentsForUser.infinite'] : ['getAppointmentsForUser.infinite', variables],
       (metaData) => fetcher<GetAppointmentsForUserQuery, GetAppointmentsForUserQueryVariables>(client, GetAppointmentsForUserDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );
+
+export const GetMessagesForUserDocument = `
+    query getMessagesForUser($UserId: uuid) {
+  Message(where: {UserId: {_eq: $UserId}}) {
+    Id
+    Type
+    Message
+    CreatedAt
+    Status
+    MessageReplies {
+      Id
+      Message
+    }
+  }
+}
+    `;
+export const useGetMessagesForUserQuery = <
+      TData = GetMessagesForUserQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: GetMessagesForUserQueryVariables,
+      options?: UseQueryOptions<GetMessagesForUserQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetMessagesForUserQuery, TError, TData>(
+      variables === undefined ? ['getMessagesForUser'] : ['getMessagesForUser', variables],
+      fetcher<GetMessagesForUserQuery, GetMessagesForUserQueryVariables>(client, GetMessagesForUserDocument, variables, headers),
+      options
+    );
+export const useInfiniteGetMessagesForUserQuery = <
+      TData = GetMessagesForUserQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof GetMessagesForUserQueryVariables,
+      client: GraphQLClient,
+      variables?: GetMessagesForUserQueryVariables,
+      options?: UseInfiniteQueryOptions<GetMessagesForUserQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<GetMessagesForUserQuery, TError, TData>(
+      variables === undefined ? ['getMessagesForUser.infinite'] : ['getMessagesForUser.infinite', variables],
+      (metaData) => fetcher<GetMessagesForUserQuery, GetMessagesForUserQueryVariables>(client, GetMessagesForUserDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
       options
     );
 

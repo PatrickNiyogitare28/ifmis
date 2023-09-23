@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { GetAllUsersDocument } from '@/generated/graphql';
+import { GetAllUsersDocument, GetAppointmentsForUserDocument, GetAppointmentsForUserQueryVariables } from '@/generated/graphql';
 import graphqlRequestClient from '@/lib/client';
 import { HttpStatusCode } from 'axios';
+import { GetMessagesForUserDocument } from '@/generated/backendGraphql';
 
 type Data = {
   error?: string;
@@ -15,8 +16,11 @@ export default async function handler(
 ) {
   if (req.method === 'GET') {
     try {
-      const usersResponse = await graphqlRequestClient.request(GetAllUsersDocument)
-      res.status(HttpStatusCode.Ok).json({ message: 'Users fetched successfully', data: usersResponse });
+      const queryVariables: GetAppointmentsForUserQueryVariables = {
+        UserId: req.query.id
+      }
+      const messagesResponse = await graphqlRequestClient.request(GetMessagesForUserDocument, queryVariables)
+      res.status(HttpStatusCode.Ok).json({ message: 'Messages fetched successfully', data: messagesResponse });
     } catch (error) {
         console.log(error)
       res.status(HttpStatusCode.InternalServerError).json({ error: 'Failed to fetch data' });
