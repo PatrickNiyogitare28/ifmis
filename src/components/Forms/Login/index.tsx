@@ -12,7 +12,7 @@ export default function LoginForm(){
     return (
         <div className='bg-white rounded-xl w-full px-12 py-12 shadow-sm'>
             <h1 className='text-xl text-black font-bold'>Login to continue</h1>
-            <h3 className='text-gray-400 font-lighter'>Refugee Settlement System</h3>
+            <h3 className='text-gray-400 font-lighter'>Appointment & Communication App</h3>
             <div className='mt-8'>
                 <form onSubmit={(event: any) => onSubmit(event)}>
                 <div className='mt-4'>
