@@ -11,7 +11,13 @@ export default function Sidebar({User}: {User: TSessionUser}){
             <div className='flex-col h-full flex justify-between'>
             <div>
             <div className='w-full flex justify-center'>
-                <Image src="/assets/images/app-logo-white.svg" alt="logo" width={150} height={100} />
+                <div className='flex gap-3 items-center'>
+                    <Image src="/assets/images/rw-logo.png" alt="logo" width={70} height={70} />
+                    <div>
+                        <label className='block text-primary font-bold'>IFMS</label>
+                        <span className='text-xs'>Supporting System</span>
+                    </div>
+                </div>
             </div>
             <div>
             {User?.Role === 'ADMIN' ? 
