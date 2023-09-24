@@ -1661,6 +1661,14 @@ export type GetUserForLoginQueryVariables = Exact<{
 
 export type GetUserForLoginQuery = { __typename?: 'query_root', User: Array<{ __typename?: 'User', Id: any, Email: string, FullName: string, Password: string, Phone: string, Role: string, IsOrganization: boolean, IsActive: boolean }>, User_aggregate: { __typename?: 'User_aggregate', aggregate?: { __typename?: 'User_aggregate_fields', count: number } | null } };
 
+export type UpdateAppointmentStatusMutationVariables = Exact<{
+  Id: Scalars['uuid'];
+  Status?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type UpdateAppointmentStatusMutation = { __typename?: 'mutation_root', update_Appointment_by_pk?: { __typename?: 'Appointment', Id: any, Status?: string | null } | null };
+
 
 export const AddAppointmentDocument = gql`
     mutation AddAppointment($Title: String, $Message: String, $Time: String, $UserId: uuid, $Type: String) {
@@ -1820,6 +1828,14 @@ export const GetUserForLoginDocument = gql`
   }
 }
     `;
+export const UpdateAppointmentStatusDocument = gql`
+    mutation updateAppointmentStatus($Id: uuid!, $Status: String) {
+  update_Appointment_by_pk(pk_columns: {Id: $Id}, _set: {Status: $Status}) {
+    Id
+    Status
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -1857,6 +1873,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getUserForLogin(variables?: GetUserForLoginQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetUserForLoginQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetUserForLoginQuery>(GetUserForLoginDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getUserForLogin', 'query');
+    },
+    updateAppointmentStatus(variables: UpdateAppointmentStatusMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<UpdateAppointmentStatusMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateAppointmentStatusMutation>(UpdateAppointmentStatusDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateAppointmentStatus', 'mutation');
     }
   };
 }

@@ -1,0 +1,6 @@
+mutation updateAppointmentStatus($Id: uuid!, $Status: String) {
+  update_Appointment_by_pk(pk_columns: {Id: $Id}, _set: {Status: $Status}) {
+    Id
+    Status
+  }
+}

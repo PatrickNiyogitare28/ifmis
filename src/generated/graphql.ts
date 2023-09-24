@@ -1,6 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
-// import { RequestInit } from 'graphql-request/dist/types.dom';
-import { RequestInit } from 'next/dist/server/web/spec-extension/request';
+import { RequestInit } from 'graphql-request/dist/types.dom';
 import { useMutation, useQuery, useInfiniteQuery, UseMutationOptions, UseQueryOptions, UseInfiniteQueryOptions } from '@tanstack/react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -1670,6 +1669,14 @@ export type GetUserForLoginQueryVariables = Exact<{
 
 export type GetUserForLoginQuery = { __typename?: 'query_root', User: Array<{ __typename?: 'User', Id: any, Email: string, FullName: string, Password: string, Phone: string, Role: string, IsOrganization: boolean, IsActive: boolean }>, User_aggregate: { __typename?: 'User_aggregate', aggregate?: { __typename?: 'User_aggregate_fields', count: number } | null } };
 
+export type UpdateAppointmentStatusMutationVariables = Exact<{
+  Id: Scalars['uuid'];
+  Status?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type UpdateAppointmentStatusMutation = { __typename?: 'mutation_root', update_Appointment_by_pk?: { __typename?: 'Appointment', Id: any, Status?: string | null } | null };
+
 
 export const AddAppointmentDocument = `
     mutation AddAppointment($Title: String, $Message: String, $Time: String, $UserId: uuid, $Type: String) {
@@ -2075,5 +2082,27 @@ export const useInfiniteGetUserForLoginQuery = <
     useInfiniteQuery<GetUserForLoginQuery, TError, TData>(
       variables === undefined ? ['getUserForLogin.infinite'] : ['getUserForLogin.infinite', variables],
       (metaData) => fetcher<GetUserForLoginQuery, GetUserForLoginQueryVariables>(client, GetUserForLoginDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );
+
+export const UpdateAppointmentStatusDocument = `
+    mutation updateAppointmentStatus($Id: uuid!, $Status: String) {
+  update_Appointment_by_pk(pk_columns: {Id: $Id}, _set: {Status: $Status}) {
+    Id
+    Status
+  }
+}
+    `;
+export const useUpdateAppointmentStatusMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<UpdateAppointmentStatusMutation, TError, UpdateAppointmentStatusMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<UpdateAppointmentStatusMutation, TError, UpdateAppointmentStatusMutationVariables, TContext>(
+      ['updateAppointmentStatus'],
+      (variables?: UpdateAppointmentStatusMutationVariables) => fetcher<UpdateAppointmentStatusMutation, UpdateAppointmentStatusMutationVariables>(client, UpdateAppointmentStatusDocument, variables, headers)(),
       options
     );
