@@ -23,7 +23,7 @@ export default function UserAppointmentsList ({User}: {User: TSessionUser}) {
             </div>
         </div>
         {showModal &&
-          <Modal title='ADD INTEGRATION REQUEST' onClose={() => setShowModal(false)}>
+          <Modal title='REQUEST AN APPOINTMENT' onClose={() => setShowModal(false)}>
             <AddAppointmentForm User={User} onClose={() => {setShowModal(false); refetch()}} />
           </Modal>
         }

@@ -1635,6 +1635,11 @@ export type GetAppointmentsForUserQueryVariables = Exact<{
 
 export type GetAppointmentsForUserQuery = { __typename?: 'query_root', Appointment: Array<{ __typename?: 'Appointment', Id: any, Title: string, Message: string, Type: string, Time?: string | null, AprovalStatus?: string | null, Status?: string | null, UserId: any }> };
 
+export type GetMessagesForAdminQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMessagesForAdminQuery = { __typename?: 'query_root', Message: Array<{ __typename?: 'Message', Id: any, Type: string, Message: string, CreatedAt: any, Status: string, User: { __typename?: 'User', FullName: string, Email: string, Phone: string }, MessageReplies: Array<{ __typename?: 'MessageReply', Id: any, Message: any }> }> };
+
 export type GetMessagesForUserQueryVariables = Exact<{
   UserId?: InputMaybe<Scalars['uuid']>;
 }>;
@@ -1748,6 +1753,26 @@ export const GetAppointmentsForUserDocument = gql`
   }
 }
     `;
+export const GetMessagesForAdminDocument = gql`
+    query getMessagesForAdmin {
+  Message {
+    Id
+    Type
+    Message
+    CreatedAt
+    Status
+    User {
+      FullName
+      Email
+      Phone
+    }
+    MessageReplies {
+      Id
+      Message
+    }
+  }
+}
+    `;
 export const GetMessagesForUserDocument = gql`
     query getMessagesForUser($UserId: uuid) {
   Message(where: {UserId: {_eq: $UserId}}) {
@@ -1820,6 +1845,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getAppointmentsForUser(variables?: GetAppointmentsForUserQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetAppointmentsForUserQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetAppointmentsForUserQuery>(GetAppointmentsForUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAppointmentsForUser', 'query');
+    },
+    getMessagesForAdmin(variables?: GetMessagesForAdminQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetMessagesForAdminQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetMessagesForAdminQuery>(GetMessagesForAdminDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getMessagesForAdmin', 'query');
     },
     getMessagesForUser(variables?: GetMessagesForUserQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetMessagesForUserQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetMessagesForUserQuery>(GetMessagesForUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getMessagesForUser', 'query');

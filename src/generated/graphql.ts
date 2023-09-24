@@ -1,5 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
-import { RequestInit } from 'graphql-request/dist/types.dom';
+// import { RequestInit } from 'graphql-request/dist/types.dom';
+import { RequestInit } from 'next/dist/server/web/spec-extension/request';
 import { useMutation, useQuery, useInfiniteQuery, UseMutationOptions, UseQueryOptions, UseInfiniteQueryOptions } from '@tanstack/react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -1643,6 +1644,11 @@ export type GetAppointmentsForUserQueryVariables = Exact<{
 
 export type GetAppointmentsForUserQuery = { __typename?: 'query_root', Appointment: Array<{ __typename?: 'Appointment', Id: any, Title: string, Message: string, Type: string, Time?: string | null, AprovalStatus?: string | null, Status?: string | null, UserId: any }> };
 
+export type GetMessagesForAdminQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMessagesForAdminQuery = { __typename?: 'query_root', Message: Array<{ __typename?: 'Message', Id: any, Type: string, Message: string, CreatedAt: any, Status: string, User: { __typename?: 'User', FullName: string, Email: string, Phone: string }, MessageReplies: Array<{ __typename?: 'MessageReply', Id: any, Message: any }> }> };
+
 export type GetMessagesForUserQueryVariables = Exact<{
   UserId?: InputMaybe<Scalars['uuid']>;
 }>;
@@ -1882,6 +1888,56 @@ export const useInfiniteGetAppointmentsForUserQuery = <
     useInfiniteQuery<GetAppointmentsForUserQuery, TError, TData>(
       variables === undefined ? ['getAppointmentsForUser.infinite'] : ['getAppointmentsForUser.infinite', variables],
       (metaData) => fetcher<GetAppointmentsForUserQuery, GetAppointmentsForUserQueryVariables>(client, GetAppointmentsForUserDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );
+
+export const GetMessagesForAdminDocument = `
+    query getMessagesForAdmin {
+  Message {
+    Id
+    Type
+    Message
+    CreatedAt
+    Status
+    User {
+      FullName
+      Email
+      Phone
+    }
+    MessageReplies {
+      Id
+      Message
+    }
+  }
+}
+    `;
+export const useGetMessagesForAdminQuery = <
+      TData = GetMessagesForAdminQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: GetMessagesForAdminQueryVariables,
+      options?: UseQueryOptions<GetMessagesForAdminQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetMessagesForAdminQuery, TError, TData>(
+      variables === undefined ? ['getMessagesForAdmin'] : ['getMessagesForAdmin', variables],
+      fetcher<GetMessagesForAdminQuery, GetMessagesForAdminQueryVariables>(client, GetMessagesForAdminDocument, variables, headers),
+      options
+    );
+export const useInfiniteGetMessagesForAdminQuery = <
+      TData = GetMessagesForAdminQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof GetMessagesForAdminQueryVariables,
+      client: GraphQLClient,
+      variables?: GetMessagesForAdminQueryVariables,
+      options?: UseInfiniteQueryOptions<GetMessagesForAdminQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<GetMessagesForAdminQuery, TError, TData>(
+      variables === undefined ? ['getMessagesForAdmin.infinite'] : ['getMessagesForAdmin.infinite', variables],
+      (metaData) => fetcher<GetMessagesForAdminQuery, GetMessagesForAdminQueryVariables>(client, GetMessagesForAdminDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
       options
     );
 

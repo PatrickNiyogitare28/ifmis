@@ -1,0 +1,18 @@
+query getMessagesForAdmin{
+  Message{
+    Id
+    Type
+    Message
+    CreatedAt
+    Status
+    User{
+      FullName
+			Email
+      Phone
+    }
+    MessageReplies{
+      Id
+      Message
+    }
+  }
+}
