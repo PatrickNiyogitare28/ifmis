@@ -1633,7 +1633,7 @@ export type GetAppointmentsForUserQueryVariables = Exact<{
 }>;
 
 
-export type GetAppointmentsForUserQuery = { __typename?: 'query_root', Appointment: Array<{ __typename?: 'Appointment', Id: any, Title: string, Message: string, Type: string, Time?: string | null, AprovalStatus?: string | null, Status?: string | null, UserId: any }> };
+export type GetAppointmentsForUserQuery = { __typename?: 'query_root', Appointment: Array<{ __typename?: 'Appointment', Id: any, Title: string, Message: string, Type: string, Time?: string | null, AprovalStatus?: string | null, Status?: string | null, UserId: any, User: { __typename?: 'User', FullName: string } }> };
 
 export type GetMessagesForAdminQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1758,6 +1758,9 @@ export const GetAppointmentsForUserDocument = gql`
     AprovalStatus
     Status
     UserId
+    User {
+      FullName
+    }
   }
 }
     `;

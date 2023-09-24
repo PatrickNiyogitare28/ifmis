@@ -1,5 +1,6 @@
 import { Appointment } from '@/generated/graphql';
-import React from 'react';
+import { generateAppointmentLetterPDF } from '@/lib/utils/generateAppointmentLetter';
+import React, { useState } from 'react';
 import {BiPen} from 'react-icons/bi';
 
 interface AppointmentsTableProps {
@@ -7,6 +8,23 @@ interface AppointmentsTableProps {
 }
 
 const UserAppointmentsTable = ({ appointments }: AppointmentsTableProps) => {
+   const [pdfData, setPdfData] = useState<Uint8Array | null>(null);
+   const handleDownloadPdf = async ({
+    name,
+    type,
+    time,
+  }: {
+    name: string;
+    type: string;
+    time: string;
+  }) => {
+    try {
+      const pdfBytes = await generateAppointmentLetterPDF(name, type, time);
+      setPdfData(pdfBytes);
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+    }
+  };
   return (
     <div className="overflow-x-auto" style={{borderRadius: '20px 20px 0px 0px'}}>
       <table className="min-w-full border-collapse table-auto">
@@ -48,8 +66,23 @@ const UserAppointmentsTable = ({ appointments }: AppointmentsTableProps) => {
               </td> */}
               <td className="border text-center">
                 <div className='flex justify-around'>
+                {appointment.Status === 'APPROVED' ?
+                <>
+                <button className='px-2 py-1 bg-primary text-white rounded-md flex  gap-2 p-2 items-center' onClick={() => handleDownloadPdf({name: appointment.User.FullName, type: appointment.Type, time: new Date(appointment.Time as string).toLocaleString([], {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit',
+                  timeZoneName: 'short',
+                })})}>DOWNLOAD LETTER</button>
+               
+                </>
+                :
                 <button className="px-2 py-1 bg-primary text-white rounded-md flex  gap-2 p-2 items-center">
                     VIEW</button>
+                }
                 </div>
               </td>
             </tr>
