@@ -4,7 +4,7 @@ import {AdminMenuHandler, StandardUserMenuHandler} from './MenuHandler';
 import { TSessionUser } from '@/types/user';
 import useLogout from './hooks/useLogout';
 
-export default function Sidebar({User}: {User: TSessionUser}){
+export default function Sidebar({User, onDashboard}: {User: TSessionUser, onDashboard?:boolean}){
     const {handleLogout} = useLogout();
     return (
         <div className='h-full bg-dashboard w-full p-4'>
@@ -21,9 +21,9 @@ export default function Sidebar({User}: {User: TSessionUser}){
             </div>
             <div>
             {User?.Role === 'ADMIN' ? 
-             <AdminMenuHandler />
+             <AdminMenuHandler onDashboard={onDashboard} />
              :
-             <StandardUserMenuHandler />
+             <StandardUserMenuHandler onDashboard={onDashboard} />
             }
             </div>
             </div>

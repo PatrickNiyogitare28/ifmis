@@ -1,6 +1,3 @@
-import Image from 'next/image'
-import Login from './auth/login';
-import {Toaster} from 'react-hot-toast';
 import { GetServerSideProps } from 'next';
 import getSessionUser from '@/utils/get-user';
 import Admin from './admin';

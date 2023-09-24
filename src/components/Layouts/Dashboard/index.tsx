@@ -6,13 +6,14 @@ import { TSessionUser } from '@/types/user';
 
 interface DashboardProps {
     User: TSessionUser;
-    children: React.ReactNode
+    children: React.ReactNode,
+    onDashboard?: boolean
 }
-export default function Dashboard ({User, children}: DashboardProps) {
+export default function Dashboard ({User, children, onDashboard}: DashboardProps) {
     return (
         <div className="h-[100vh] w-screen overflow-y-hidden flex">
             <div className='w-[15%]'>
-                <Sidebar User={User} />
+                <Sidebar User={User} onDashboard={onDashboard}/>
             </div>
             <div className='w-[85%] h-[100vh] overflow-y-scroll'>
                 <Navbar User={User} />

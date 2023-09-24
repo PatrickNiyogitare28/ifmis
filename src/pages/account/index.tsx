@@ -8,7 +8,7 @@ import React from 'react';
 
 export default function Account({User}: {User: TSessionUser}){
     return (
-       <Dashboard User={User}>
+       <Dashboard User={User} onDashboard={true}>
            <div>
             <UserStatistics />
             {/* <AdminUsers /> */}
