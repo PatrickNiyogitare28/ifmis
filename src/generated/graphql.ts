@@ -1,6 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
-// import { RequestInit } from 'graphql-request/dist/types.dom';
-import { RequestInit } from 'next/dist/server/web/spec-extension/request';
+import { RequestInit } from 'graphql-request/dist/types.dom';
 import { useMutation, useQuery, useInfiniteQuery, UseMutationOptions, UseQueryOptions, UseInfiniteQueryOptions } from '@tanstack/react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -1656,6 +1655,15 @@ export type GetMessagesForUserQueryVariables = Exact<{
 
 export type GetMessagesForUserQuery = { __typename?: 'query_root', Message: Array<{ __typename?: 'Message', Id: any, Type: string, Message: string, CreatedAt: any, Status: string, MessageReplies: Array<{ __typename?: 'MessageReply', Id: any, Message: any }> }> };
 
+export type AddMessageReplyMutationVariables = Exact<{
+  Reply?: InputMaybe<Scalars['String']>;
+  MessageId: Scalars['uuid'];
+  UserId?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type AddMessageReplyMutation = { __typename?: 'mutation_root', insert_MessageReply_one?: { __typename?: 'MessageReply', Id: any, Reply: string } | null, update_Message_by_pk?: { __typename?: 'Message', Id: any, Message: string } | null };
+
 export type GetUserWithEmailQueryVariables = Exact<{
   Email?: InputMaybe<Scalars['String']>;
 }>;
@@ -1997,6 +2005,33 @@ export const useInfiniteGetMessagesForUserQuery = <
       options
     );
 
+export const AddMessageReplyDocument = `
+    mutation addMessageReply($Reply: String, $MessageId: uuid!, $UserId: uuid) {
+  insert_MessageReply_one(
+    object: {Reply: $Reply, Message: $MessageId, User: $UserId}
+  ) {
+    Id
+    Reply
+  }
+  update_Message_by_pk(pk_columns: {Id: $MessageId}, _set: {Status: "REPLIED"}) {
+    Id
+    Message
+  }
+}
+    `;
+export const useAddMessageReplyMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<AddMessageReplyMutation, TError, AddMessageReplyMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<AddMessageReplyMutation, TError, AddMessageReplyMutationVariables, TContext>(
+      ['addMessageReply'],
+      (variables?: AddMessageReplyMutationVariables) => fetcher<AddMessageReplyMutation, AddMessageReplyMutationVariables>(client, AddMessageReplyDocument, variables, headers)(),
+      options
+    );
 export const GetUserWithEmailDocument = `
     query getUserWithEmail($Email: String) {
   User(where: {Email: {_eq: $Email}}) {

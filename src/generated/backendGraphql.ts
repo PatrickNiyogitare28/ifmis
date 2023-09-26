@@ -1647,6 +1647,15 @@ export type GetMessagesForUserQueryVariables = Exact<{
 
 export type GetMessagesForUserQuery = { __typename?: 'query_root', Message: Array<{ __typename?: 'Message', Id: any, Type: string, Message: string, CreatedAt: any, Status: string, MessageReplies: Array<{ __typename?: 'MessageReply', Id: any, Message: any }> }> };
 
+export type AddMessageReplyMutationVariables = Exact<{
+  Reply?: InputMaybe<Scalars['String']>;
+  MessageId: Scalars['uuid'];
+  UserId?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type AddMessageReplyMutation = { __typename?: 'mutation_root', insert_MessageReply_one?: { __typename?: 'MessageReply', Id: any, Reply: string } | null, update_Message_by_pk?: { __typename?: 'Message', Id: any, Message: string } | null };
+
 export type GetUserWithEmailQueryVariables = Exact<{
   Email?: InputMaybe<Scalars['String']>;
 }>;
@@ -1799,6 +1808,20 @@ export const GetMessagesForUserDocument = gql`
   }
 }
     `;
+export const AddMessageReplyDocument = gql`
+    mutation addMessageReply($Reply: String, $MessageId: uuid!, $UserId: uuid) {
+  insert_MessageReply_one(
+    object: {Reply: $Reply, Message: $MessageId, User: $UserId}
+  ) {
+    Id
+    Reply
+  }
+  update_Message_by_pk(pk_columns: {Id: $MessageId}, _set: {Status: "REPLIED"}) {
+    Id
+    Message
+  }
+}
+    `;
 export const GetUserWithEmailDocument = gql`
     query getUserWithEmail($Email: String) {
   User(where: {Email: {_eq: $Email}}) {
@@ -1870,6 +1893,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getMessagesForUser(variables?: GetMessagesForUserQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetMessagesForUserQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetMessagesForUserQuery>(GetMessagesForUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getMessagesForUser', 'query');
+    },
+    addMessageReply(variables: AddMessageReplyMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<AddMessageReplyMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<AddMessageReplyMutation>(AddMessageReplyDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'addMessageReply', 'mutation');
     },
     getUserWithEmail(variables?: GetUserWithEmailQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetUserWithEmailQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetUserWithEmailQuery>(GetUserWithEmailDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getUserWithEmail', 'query');

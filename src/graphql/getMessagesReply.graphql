@@ -1,0 +1,15 @@
+mutation addMessageReply($Reply: String, $MessageId: uuid!, $UserId: uuid){
+  insert_MessageReply_one(object:{
+    Reply: $Reply
+    Message: $MessageId,
+    User: $UserId
+  }){
+    Id
+    Reply
+  }
+  update_Message_by_pk(pk_columns: {Id: $MessageId}, _set: {Status: "REPLIED"}){
+    Id
+    Message
+  }
+
+}
