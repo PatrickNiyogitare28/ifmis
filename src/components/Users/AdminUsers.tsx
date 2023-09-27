@@ -5,10 +5,6 @@ import {BiPlus} from 'react-icons/bi';
 import {Toaster} from 'react-hot-toast';
 import Modal from '../Modal';
 import AddUserForm from '../Forms/User/AddUser';
-import { GetAllUsersDocument, GetAllUsersQuery, useGetAllUsersQuery } from '@/generated/graphql';
-import useClient from '@/lib/client/useClient';
-import { GetServerSideProps } from 'next';
-import graphqlRequestClient from '@/lib/client';
 import useFetchUsers from './hooks/useFetchUsers';
 
 export default function AdminUsers (props: any) {
@@ -25,7 +21,7 @@ export default function AdminUsers (props: any) {
                 </button>
             </div>
             <div className="mt-4">
-            <UserTable users={users} />
+            <UserTable users={users} refetch={refetch}/>
             </div>
         </div>
         {showModal &&

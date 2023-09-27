@@ -1646,14 +1646,14 @@ export type GetAppointmentsForUserQuery = { __typename?: 'query_root', Appointme
 export type GetMessagesForAdminQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMessagesForAdminQuery = { __typename?: 'query_root', Message: Array<{ __typename?: 'Message', Id: any, Type: string, Message: string, CreatedAt: any, Status: string, User: { __typename?: 'User', FullName: string, Email: string, Phone: string }, MessageReplies: Array<{ __typename?: 'MessageReply', Id: any, Message: any }> }> };
+export type GetMessagesForAdminQuery = { __typename?: 'query_root', Message: Array<{ __typename?: 'Message', Id: any, Type: string, Message: string, CreatedAt: any, Status: string, User: { __typename?: 'User', FullName: string, Email: string, Phone: string }, MessageReplies: Array<{ __typename?: 'MessageReply', Id: any, Message: any, Reply: string }> }> };
 
 export type GetMessagesForUserQueryVariables = Exact<{
   UserId?: InputMaybe<Scalars['uuid']>;
 }>;
 
 
-export type GetMessagesForUserQuery = { __typename?: 'query_root', Message: Array<{ __typename?: 'Message', Id: any, Type: string, Message: string, CreatedAt: any, Status: string, MessageReplies: Array<{ __typename?: 'MessageReply', Id: any, Message: any }> }> };
+export type GetMessagesForUserQuery = { __typename?: 'query_root', Message: Array<{ __typename?: 'Message', Id: any, Type: string, Message: string, CreatedAt: any, Status: string, MessageReplies: Array<{ __typename?: 'MessageReply', Id: any, Message: any, Reply: string }> }> };
 
 export type AddMessageReplyMutationVariables = Exact<{
   Reply?: InputMaybe<Scalars['String']>;
@@ -1685,6 +1685,14 @@ export type UpdateAppointmentStatusMutationVariables = Exact<{
 
 
 export type UpdateAppointmentStatusMutation = { __typename?: 'mutation_root', update_Appointment_by_pk?: { __typename?: 'Appointment', Id: any, Status?: string | null } | null };
+
+export type UpdateUserStatusMutationVariables = Exact<{
+  Id: Scalars['uuid'];
+  IsActive?: InputMaybe<Scalars['Boolean']>;
+}>;
+
+
+export type UpdateUserStatusMutation = { __typename?: 'mutation_root', update_User_by_pk?: { __typename?: 'User', Id: any, IsActive: boolean } | null };
 
 
 export const AddAppointmentDocument = `
@@ -1926,6 +1934,7 @@ export const GetMessagesForAdminDocument = `
     MessageReplies {
       Id
       Message
+      Reply
     }
   }
 }
@@ -1971,6 +1980,7 @@ export const GetMessagesForUserDocument = `
     MessageReplies {
       Id
       Message
+      Reply
     }
   }
 }
@@ -2143,5 +2153,26 @@ export const useUpdateAppointmentStatusMutation = <
     useMutation<UpdateAppointmentStatusMutation, TError, UpdateAppointmentStatusMutationVariables, TContext>(
       ['updateAppointmentStatus'],
       (variables?: UpdateAppointmentStatusMutationVariables) => fetcher<UpdateAppointmentStatusMutation, UpdateAppointmentStatusMutationVariables>(client, UpdateAppointmentStatusDocument, variables, headers)(),
+      options
+    );
+export const UpdateUserStatusDocument = `
+    mutation updateUserStatus($Id: uuid!, $IsActive: Boolean) {
+  update_User_by_pk(pk_columns: {Id: $Id}, _set: {IsActive: $IsActive}) {
+    Id
+    IsActive
+  }
+}
+    `;
+export const useUpdateUserStatusMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<UpdateUserStatusMutation, TError, UpdateUserStatusMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<UpdateUserStatusMutation, TError, UpdateUserStatusMutationVariables, TContext>(
+      ['updateUserStatus'],
+      (variables?: UpdateUserStatusMutationVariables) => fetcher<UpdateUserStatusMutation, UpdateUserStatusMutationVariables>(client, UpdateUserStatusDocument, variables, headers)(),
       options
     );

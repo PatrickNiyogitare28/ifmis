@@ -1638,14 +1638,14 @@ export type GetAppointmentsForUserQuery = { __typename?: 'query_root', Appointme
 export type GetMessagesForAdminQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMessagesForAdminQuery = { __typename?: 'query_root', Message: Array<{ __typename?: 'Message', Id: any, Type: string, Message: string, CreatedAt: any, Status: string, User: { __typename?: 'User', FullName: string, Email: string, Phone: string }, MessageReplies: Array<{ __typename?: 'MessageReply', Id: any, Message: any }> }> };
+export type GetMessagesForAdminQuery = { __typename?: 'query_root', Message: Array<{ __typename?: 'Message', Id: any, Type: string, Message: string, CreatedAt: any, Status: string, User: { __typename?: 'User', FullName: string, Email: string, Phone: string }, MessageReplies: Array<{ __typename?: 'MessageReply', Id: any, Message: any, Reply: string }> }> };
 
 export type GetMessagesForUserQueryVariables = Exact<{
   UserId?: InputMaybe<Scalars['uuid']>;
 }>;
 
 
-export type GetMessagesForUserQuery = { __typename?: 'query_root', Message: Array<{ __typename?: 'Message', Id: any, Type: string, Message: string, CreatedAt: any, Status: string, MessageReplies: Array<{ __typename?: 'MessageReply', Id: any, Message: any }> }> };
+export type GetMessagesForUserQuery = { __typename?: 'query_root', Message: Array<{ __typename?: 'Message', Id: any, Type: string, Message: string, CreatedAt: any, Status: string, MessageReplies: Array<{ __typename?: 'MessageReply', Id: any, Message: any, Reply: string }> }> };
 
 export type AddMessageReplyMutationVariables = Exact<{
   Reply?: InputMaybe<Scalars['String']>;
@@ -1677,6 +1677,14 @@ export type UpdateAppointmentStatusMutationVariables = Exact<{
 
 
 export type UpdateAppointmentStatusMutation = { __typename?: 'mutation_root', update_Appointment_by_pk?: { __typename?: 'Appointment', Id: any, Status?: string | null } | null };
+
+export type UpdateUserStatusMutationVariables = Exact<{
+  Id: Scalars['uuid'];
+  IsActive?: InputMaybe<Scalars['Boolean']>;
+}>;
+
+
+export type UpdateUserStatusMutation = { __typename?: 'mutation_root', update_User_by_pk?: { __typename?: 'User', Id: any, IsActive: boolean } | null };
 
 
 export const AddAppointmentDocument = gql`
@@ -1789,6 +1797,7 @@ export const GetMessagesForAdminDocument = gql`
     MessageReplies {
       Id
       Message
+      Reply
     }
   }
 }
@@ -1804,6 +1813,7 @@ export const GetMessagesForUserDocument = gql`
     MessageReplies {
       Id
       Message
+      Reply
     }
   }
 }
@@ -1862,6 +1872,14 @@ export const UpdateAppointmentStatusDocument = gql`
   }
 }
     `;
+export const UpdateUserStatusDocument = gql`
+    mutation updateUserStatus($Id: uuid!, $IsActive: Boolean) {
+  update_User_by_pk(pk_columns: {Id: $Id}, _set: {IsActive: $IsActive}) {
+    Id
+    IsActive
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -1905,6 +1923,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     updateAppointmentStatus(variables: UpdateAppointmentStatusMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<UpdateAppointmentStatusMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<UpdateAppointmentStatusMutation>(UpdateAppointmentStatusDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateAppointmentStatus', 'mutation');
+    },
+    updateUserStatus(variables: UpdateUserStatusMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<UpdateUserStatusMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateUserStatusMutation>(UpdateUserStatusDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateUserStatus', 'mutation');
     }
   };
 }

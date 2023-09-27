@@ -16,7 +16,7 @@ export default function AdminMessagesList ({User}: {User: TSessionUser}) {
                 </button>
             </div>
             <div className="mt-4">
-            <AdminMessagesTable messages={messages} />
+            <AdminMessagesTable refetch={refetch} messages={messages} User={User} />
             </div>
         </div>
         </>

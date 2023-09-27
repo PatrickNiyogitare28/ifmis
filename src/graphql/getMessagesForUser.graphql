@@ -8,6 +8,7 @@ query getMessagesForUser($UserId: uuid){
     MessageReplies{
       Id
       Message
+      Reply
     }
   }
 }

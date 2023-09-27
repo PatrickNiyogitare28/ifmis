@@ -13,6 +13,7 @@ query getMessagesForAdmin{
     MessageReplies{
       Id
       Message
+      Reply
     }
   }
 }

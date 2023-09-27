@@ -1,12 +1,16 @@
 import { User, GetAllUsersQuery } from '@/generated/graphql';
 import React from 'react';
 import {BiPen} from 'react-icons/bi';
+import useUpdateUserStatus from './hooks/useUpdateUser';
 
 interface UserTableProps {
-    users: User[]
+    users: User[],
+    refetch: () => void
 }
 
-const UserTable = ({ users }: UserTableProps) => {
+const UserTable = ({ users, refetch }: UserTableProps) => {
+  const {handleStatusUpdate} = useUpdateUserStatus({refetch});
+
   return (
     <div className="overflow-x-auto" style={{borderRadius: '20px 20px 0px 0px'}}>
       <table className="min-w-full border-collapse table-auto">
@@ -32,9 +36,19 @@ const UserTable = ({ users }: UserTableProps) => {
               </td>
               <td className="border text-center">
                 <div className='flex justify-around'>
-                <button className="px-2 py-1 bg-primary text-white rounded-md flex  gap-2 p-2 items-center">
-                <BiPen color='white' />
-                    EDIT</button>
+                 {user.IsActive ?
+                <button className="px-2 py-1 bg-danger text-white rounded-md flex  gap-2 p-2 items-center"
+                 onClick={() => handleStatusUpdate({IsActive: false, UserId: user.Id})}
+                >
+                {/* <BiPen color='white' /> */}
+                    CANCEL</button>
+                :
+                <button className="px-2 py-1 bg-success text-white rounded-md flex  gap-2 p-2 items-center"
+                onClick={() => handleStatusUpdate({IsActive: true, UserId: user.Id})}
+                >
+                {/* <BiPen color='white' /> */}
+                    APPROVE</button>
+                }
                 </div>
               </td>
             </tr>
