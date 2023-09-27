@@ -1638,14 +1638,14 @@ export type GetAppointmentsForUserQuery = { __typename?: 'query_root', Appointme
 export type GetMessagesForAdminQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMessagesForAdminQuery = { __typename?: 'query_root', Message: Array<{ __typename?: 'Message', Id: any, Type: string, Message: string, CreatedAt: any, Status: string, User: { __typename?: 'User', FullName: string, Email: string, Phone: string }, MessageReplies: Array<{ __typename?: 'MessageReply', Id: any, Message: any }> }> };
+export type GetMessagesForAdminQuery = { __typename?: 'query_root', Message: Array<{ __typename?: 'Message', Id: any, Type: string, Message: string, CreatedAt: any, Status: string, User: { __typename?: 'User', FullName: string, Email: string, Phone: string }, MessageReplies: Array<{ __typename?: 'MessageReply', Id: any, Message: any, Reply: string }> }> };
 
 export type GetMessagesForUserQueryVariables = Exact<{
   UserId?: InputMaybe<Scalars['uuid']>;
 }>;
 
 
-export type GetMessagesForUserQuery = { __typename?: 'query_root', Message: Array<{ __typename?: 'Message', Id: any, Type: string, Message: string, CreatedAt: any, Status: string, MessageReplies: Array<{ __typename?: 'MessageReply', Id: any, Message: any }> }> };
+export type GetMessagesForUserQuery = { __typename?: 'query_root', Message: Array<{ __typename?: 'Message', Id: any, Type: string, Message: string, CreatedAt: any, Status: string, MessageReplies: Array<{ __typename?: 'MessageReply', Id: any, Message: any, Reply: string }> }> };
 
 export type AddMessageReplyMutationVariables = Exact<{
   Reply?: InputMaybe<Scalars['String']>;
@@ -1789,6 +1789,7 @@ export const GetMessagesForAdminDocument = gql`
     MessageReplies {
       Id
       Message
+      Reply
     }
   }
 }
@@ -1804,6 +1805,7 @@ export const GetMessagesForUserDocument = gql`
     MessageReplies {
       Id
       Message
+      Reply
     }
   }
 }

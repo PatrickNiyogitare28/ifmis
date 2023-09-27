@@ -1,5 +1,7 @@
+import Modal from '@/components/Modal';
+import ViewMessageReplay from '@/components/ViewMessageReply';
 import { Message } from '@/generated/graphql';
-import React from 'react';
+import React, { useState } from 'react';
 import {BiPen} from 'react-icons/bi';
 
 interface UserMessagesTableProps {
@@ -7,7 +9,15 @@ interface UserMessagesTableProps {
 }
 
 export default function UserMessagesTable({ messages }: UserMessagesTableProps){
+  const [viewMessage, setViewMessage] = useState(false);
+  const [activeMessage, setActiveMessage] = useState<Message>();
+
+  const handleViewMessage = (message: Message) => {
+    setActiveMessage(message);
+    setViewMessage(true);
+  }
   return (
+    <>
     <div className="overflow-x-auto" style={{borderRadius: '20px 20px 0px 0px'}}>
       <table className="min-w-full border-collapse table-auto">
         <thead>
@@ -30,8 +40,14 @@ export default function UserMessagesTable({ messages }: UserMessagesTableProps){
               </td>
               <td className="border text-center">
                 <div className='flex justify-around'>
-                <button className="px-2 py-1 bg-primary text-white rounded-md flex  gap-2 p-2 items-center">
-                <BiPen color='white' />
+                <button className={`${message?.MessageReplies.length > 0 ? 'opacity-[1]' : 'opacity-[0.5]'} px-2 py-1 bg-primary text-white rounded-md flex  gap-2 p-2 items-center`}
+                 onClick={() => {
+                  if(message.MessageReplies.length > 0){
+                    handleViewMessage(message)
+                  }
+                 }}
+                >
+                {/* <BiPen color='white' /> */}
                     VIEW</button>
                 </div>
               </td>
@@ -41,6 +57,12 @@ export default function UserMessagesTable({ messages }: UserMessagesTableProps){
         </tbody>
       </table>
     </div>
+    {viewMessage && 
+    <Modal onClose={() => setViewMessage(false)} title="MESSAGE REPLY">
+      <ViewMessageReplay message={activeMessage as Message} />
+    </Modal>
+    }
+    </>
   );
 };
 
