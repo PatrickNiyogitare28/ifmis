@@ -1,0 +1,6 @@
+mutation updateUserStatus($Id: uuid!, $IsActive: Boolean) {
+  update_User_by_pk(pk_columns: {Id: $Id}, _set: {IsActive: $IsActive}) {
+    Id
+    IsActive
+  }
+}

@@ -1678,6 +1678,14 @@ export type UpdateAppointmentStatusMutationVariables = Exact<{
 
 export type UpdateAppointmentStatusMutation = { __typename?: 'mutation_root', update_Appointment_by_pk?: { __typename?: 'Appointment', Id: any, Status?: string | null } | null };
 
+export type UpdateUserStatusMutationVariables = Exact<{
+  Id: Scalars['uuid'];
+  IsActive?: InputMaybe<Scalars['Boolean']>;
+}>;
+
+
+export type UpdateUserStatusMutation = { __typename?: 'mutation_root', update_User_by_pk?: { __typename?: 'User', Id: any, IsActive: boolean } | null };
+
 
 export const AddAppointmentDocument = gql`
     mutation AddAppointment($Title: String, $Message: String, $Time: String, $UserId: uuid, $Type: String) {
@@ -1864,6 +1872,14 @@ export const UpdateAppointmentStatusDocument = gql`
   }
 }
     `;
+export const UpdateUserStatusDocument = gql`
+    mutation updateUserStatus($Id: uuid!, $IsActive: Boolean) {
+  update_User_by_pk(pk_columns: {Id: $Id}, _set: {IsActive: $IsActive}) {
+    Id
+    IsActive
+  }
+}
+    `;
 
 export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, string>) => Promise<T>, operationName: string, operationType?: string) => Promise<T>;
 
@@ -1907,6 +1923,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     updateAppointmentStatus(variables: UpdateAppointmentStatusMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<UpdateAppointmentStatusMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<UpdateAppointmentStatusMutation>(UpdateAppointmentStatusDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateAppointmentStatus', 'mutation');
+    },
+    updateUserStatus(variables: UpdateUserStatusMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<UpdateUserStatusMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UpdateUserStatusMutation>(UpdateUserStatusDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateUserStatus', 'mutation');
     }
   };
 }

@@ -1686,6 +1686,14 @@ export type UpdateAppointmentStatusMutationVariables = Exact<{
 
 export type UpdateAppointmentStatusMutation = { __typename?: 'mutation_root', update_Appointment_by_pk?: { __typename?: 'Appointment', Id: any, Status?: string | null } | null };
 
+export type UpdateUserStatusMutationVariables = Exact<{
+  Id: Scalars['uuid'];
+  IsActive?: InputMaybe<Scalars['Boolean']>;
+}>;
+
+
+export type UpdateUserStatusMutation = { __typename?: 'mutation_root', update_User_by_pk?: { __typename?: 'User', Id: any, IsActive: boolean } | null };
+
 
 export const AddAppointmentDocument = `
     mutation AddAppointment($Title: String, $Message: String, $Time: String, $UserId: uuid, $Type: String) {
@@ -2145,5 +2153,26 @@ export const useUpdateAppointmentStatusMutation = <
     useMutation<UpdateAppointmentStatusMutation, TError, UpdateAppointmentStatusMutationVariables, TContext>(
       ['updateAppointmentStatus'],
       (variables?: UpdateAppointmentStatusMutationVariables) => fetcher<UpdateAppointmentStatusMutation, UpdateAppointmentStatusMutationVariables>(client, UpdateAppointmentStatusDocument, variables, headers)(),
+      options
+    );
+export const UpdateUserStatusDocument = `
+    mutation updateUserStatus($Id: uuid!, $IsActive: Boolean) {
+  update_User_by_pk(pk_columns: {Id: $Id}, _set: {IsActive: $IsActive}) {
+    Id
+    IsActive
+  }
+}
+    `;
+export const useUpdateUserStatusMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<UpdateUserStatusMutation, TError, UpdateUserStatusMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<UpdateUserStatusMutation, TError, UpdateUserStatusMutationVariables, TContext>(
+      ['updateUserStatus'],
+      (variables?: UpdateUserStatusMutationVariables) => fetcher<UpdateUserStatusMutation, UpdateUserStatusMutationVariables>(client, UpdateUserStatusDocument, variables, headers)(),
       options
     );
