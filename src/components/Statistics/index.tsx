@@ -2,8 +2,10 @@ import React from 'react';
 import {BiGroup, BiSolidGroup, BiListCheck, BiListMinus} from 'react-icons/bi';
 import BarChart from './Charts/Bar';
 import UserPieChart from './Charts/Pai';
+import useGetStats from './hooks/useGetStats';
 
 export default function AdminStatistics () {
+    const {data} = useGetStats();
     return (
         <div className="w-full">
         <div className='w-full flex justify-between  px-6 mt-6    '>
@@ -13,7 +15,7 @@ export default function AdminStatistics () {
                 <BiGroup size={30} color='silver' />
                 </div>
                 <div>
-                    <label className='text-primary font-bold text-4xl'>28</label>
+                    <label className='text-primary font-bold text-4xl'>{data.appointments}</label>
                 </div>
             </div>
 
@@ -23,7 +25,7 @@ export default function AdminStatistics () {
                 <BiSolidGroup size={30}  color='silver'  />
                 </div>
                 <div>
-                    <label className='text-primary font-bold text-4xl'>12</label>
+                    <label className='text-primary font-bold text-4xl'>{data.messages}</label>
                 </div>
             </div>
 
@@ -33,7 +35,7 @@ export default function AdminStatistics () {
                 <BiListCheck  size={35} color={"silver"} />
                 </div>
                 <div>
-                    <label className='text-primary font-bold text-4xl'>8</label>
+                    <label className='text-primary font-bold text-4xl'>{data.clients}</label>
                 </div>
             </div>
 
@@ -43,7 +45,7 @@ export default function AdminStatistics () {
                 <BiListMinus size={35} color={"silver"} />
                 </div>
                 <div>
-                    <label className='text-primary font-bold text-4xl'>28</label>
+                    <label className='text-primary font-bold text-4xl'>{data.organizations}</label>
                 </div>
             </div>
         </div>
@@ -54,7 +56,7 @@ export default function AdminStatistics () {
             <BarChart />
         </div>
         <div className='w-[30%]'>
-        <UserPieChart />
+        <UserPieChart verified={data.verifiedAccounts} nonVerified={data.nonVerifiedAccounts} />
         </div>
         </div>
         </div>

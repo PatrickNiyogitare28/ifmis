@@ -13,7 +13,7 @@ export const userData = [
   // src/components/UserPieChart.tsx
 
 
-const UserPieChart: React.FC = () => {
+export default function UserPieChart({verified, nonVerified}: {verified: number, nonVerified: number}) {
   // Calculate the counts of verified and not verified users
   const verifiedCount = userData.filter((user) => user.verified).length;
   const notVerifiedCount = userData.length - verifiedCount;
@@ -22,7 +22,7 @@ const UserPieChart: React.FC = () => {
     labels: ["Verified Users", "Not Verified Users"],
     datasets: [
       {
-        data: [verifiedCount, notVerifiedCount],
+        data: [verified, nonVerified],
         backgroundColor: ["rgba(75, 192, 192, 0.2)", "rgba(255, 99, 132, 0.2)"],
         borderColor: ["rgba(75, 192, 192, 1)", "rgba(255, 99, 132, 1)"],
         borderWidth: 1,
@@ -37,4 +37,3 @@ const UserPieChart: React.FC = () => {
   );
 };
 
-export default UserPieChart;
