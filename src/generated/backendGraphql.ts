@@ -1618,6 +1618,16 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = { __typename?: 'mutation_root', insert_User_one?: { __typename?: 'User', Id: any, FullName: string, Email: string, Phone: string, Role: string, IsOrganization: boolean, IsActive: boolean } | null };
 
+export type GetAdminStatisticsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAdminStatisticsQuery = { __typename?: 'query_root', Appointment_aggregate: { __typename?: 'Appointment_aggregate', aggregate?: { __typename?: 'Appointment_aggregate_fields', count: number } | null }, Message_aggregate: { __typename?: 'Message_aggregate', aggregate?: { __typename?: 'Message_aggregate_fields', count: number } | null }, User: Array<{ __typename?: 'User', Id: any }>, User_aggregate: { __typename?: 'User_aggregate', aggregate?: { __typename?: 'User_aggregate_fields', count: number } | null } };
+
+export type GetAdminVerifiedUsersStatsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAdminVerifiedUsersStatsQuery = { __typename?: 'query_root', User_aggregate: { __typename?: 'User_aggregate', aggregate?: { __typename?: 'User_aggregate_fields', count: number } | null } };
+
 export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1726,6 +1736,37 @@ export const CreateUserDocument = gql`
     Role
     IsOrganization
     IsActive
+  }
+}
+    `;
+export const GetAdminStatisticsDocument = gql`
+    query getAdminStatistics {
+  Appointment_aggregate {
+    aggregate {
+      count
+    }
+  }
+  Message_aggregate {
+    aggregate {
+      count
+    }
+  }
+  User {
+    Id
+  }
+  User_aggregate(where: {IsOrganization: {_eq: true}}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+export const GetAdminVerifiedUsersStatsDocument = gql`
+    query getAdminVerifiedUsersStats {
+  User_aggregate(where: {IsActive: {_eq: true}}) {
+    aggregate {
+      count
+    }
   }
 }
     `;
@@ -1896,6 +1937,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     createUser(variables?: CreateUserMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CreateUserMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateUserMutation>(CreateUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createUser', 'mutation');
+    },
+    getAdminStatistics(variables?: GetAdminStatisticsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetAdminStatisticsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetAdminStatisticsQuery>(GetAdminStatisticsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAdminStatistics', 'query');
+    },
+    getAdminVerifiedUsersStats(variables?: GetAdminVerifiedUsersStatsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetAdminVerifiedUsersStatsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetAdminVerifiedUsersStatsQuery>(GetAdminVerifiedUsersStatsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAdminVerifiedUsersStats', 'query');
     },
     getAllUsers(variables?: GetAllUsersQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetAllUsersQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetAllUsersQuery>(GetAllUsersDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAllUsers', 'query');

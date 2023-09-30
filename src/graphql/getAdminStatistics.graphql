@@ -1,0 +1,29 @@
+query getAdminStatistics{
+  Appointment_aggregate{
+    aggregate{
+      count
+    }
+  }
+  Message_aggregate{
+    aggregate{
+      count
+    }
+  }
+  User{
+    Id
+  }
+  User_aggregate(where: {IsOrganization: {_eq: true}}){
+    aggregate{
+      count
+    }
+  }
+}
+
+query getAdminVerifiedUsersStats{
+  User_aggregate(where: {IsActive: {_eq: true}}){
+    aggregate{
+ 			count
+  }
+  }
+}
+

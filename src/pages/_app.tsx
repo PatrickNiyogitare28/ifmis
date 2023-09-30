@@ -3,6 +3,7 @@ import '@/styles/globals.css'
 // import 'react-calendar/dist/Calendar.css';
 // import 'react-clock/dist/Clock.css';
 import "react-datepicker/dist/react-datepicker.css";
+import "react-resizable/css/styles.css";
 import type { AppProps } from 'next/app'
 import {
   QueryClient,

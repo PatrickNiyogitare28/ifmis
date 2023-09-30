@@ -1,8 +1,11 @@
 import React from 'react';
 import {BiGroup, BiSolidGroup, BiListCheck, BiListMinus} from 'react-icons/bi';
+import BarChart from './Charts/Bar';
+import UserPieChart from './Charts/Pai';
 
 export default function AdminStatistics () {
     return (
+        <div className="w-full">
         <div className='w-full flex justify-between  px-6 mt-6    '>
             <div className='w-[20%] bg-white shadow-md rounded-md p-4'>
                 <div className='flex justify-between items-center'>
@@ -43,6 +46,18 @@ export default function AdminStatistics () {
                     <label className='text-primary font-bold text-4xl'>28</label>
                 </div>
             </div>
+        </div>
+        <div className='py-4 '>
+        <h2 className='font-bold text-xl p-4 px-6'>Statistics</h2>
+        <div className='p-4 w-full flex justify-between   px-[4em] py-6'>
+        <div className='w-[60%]'>
+            <BarChart />
+        </div>
+        <div className='w-[30%]'>
+        <UserPieChart />
+        </div>
+        </div>
+        </div>
         </div>
     )
 }

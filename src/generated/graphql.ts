@@ -1,6 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
-// import { RequestInit } from 'graphql-request/dist/types.dom';
-import { RequestInit } from 'next/dist/server/web/spec-extension/request';
+import { RequestInit } from 'graphql-request/dist/types.dom';
 import { useMutation, useQuery, useInfiniteQuery, UseMutationOptions, UseQueryOptions, UseInfiniteQueryOptions } from '@tanstack/react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -1627,6 +1626,16 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = { __typename?: 'mutation_root', insert_User_one?: { __typename?: 'User', Id: any, FullName: string, Email: string, Phone: string, Role: string, IsOrganization: boolean, IsActive: boolean } | null };
 
+export type GetAdminStatisticsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAdminStatisticsQuery = { __typename?: 'query_root', Appointment_aggregate: { __typename?: 'Appointment_aggregate', aggregate?: { __typename?: 'Appointment_aggregate_fields', count: number } | null }, Message_aggregate: { __typename?: 'Message_aggregate', aggregate?: { __typename?: 'Message_aggregate_fields', count: number } | null }, User: Array<{ __typename?: 'User', Id: any }>, User_aggregate: { __typename?: 'User_aggregate', aggregate?: { __typename?: 'User_aggregate_fields', count: number } | null } };
+
+export type GetAdminVerifiedUsersStatsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAdminVerifiedUsersStatsQuery = { __typename?: 'query_root', User_aggregate: { __typename?: 'User_aggregate', aggregate?: { __typename?: 'User_aggregate_fields', count: number } | null } };
+
 export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1777,6 +1786,97 @@ export const useCreateUserMutation = <
       (variables?: CreateUserMutationVariables) => fetcher<CreateUserMutation, CreateUserMutationVariables>(client, CreateUserDocument, variables, headers)(),
       options
     );
+export const GetAdminStatisticsDocument = `
+    query getAdminStatistics {
+  Appointment_aggregate {
+    aggregate {
+      count
+    }
+  }
+  Message_aggregate {
+    aggregate {
+      count
+    }
+  }
+  User {
+    Id
+  }
+  User_aggregate(where: {IsOrganization: {_eq: true}}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+export const useGetAdminStatisticsQuery = <
+      TData = GetAdminStatisticsQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: GetAdminStatisticsQueryVariables,
+      options?: UseQueryOptions<GetAdminStatisticsQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetAdminStatisticsQuery, TError, TData>(
+      variables === undefined ? ['getAdminStatistics'] : ['getAdminStatistics', variables],
+      fetcher<GetAdminStatisticsQuery, GetAdminStatisticsQueryVariables>(client, GetAdminStatisticsDocument, variables, headers),
+      options
+    );
+export const useInfiniteGetAdminStatisticsQuery = <
+      TData = GetAdminStatisticsQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof GetAdminStatisticsQueryVariables,
+      client: GraphQLClient,
+      variables?: GetAdminStatisticsQueryVariables,
+      options?: UseInfiniteQueryOptions<GetAdminStatisticsQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<GetAdminStatisticsQuery, TError, TData>(
+      variables === undefined ? ['getAdminStatistics.infinite'] : ['getAdminStatistics.infinite', variables],
+      (metaData) => fetcher<GetAdminStatisticsQuery, GetAdminStatisticsQueryVariables>(client, GetAdminStatisticsDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );
+
+export const GetAdminVerifiedUsersStatsDocument = `
+    query getAdminVerifiedUsersStats {
+  User_aggregate(where: {IsActive: {_eq: true}}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+export const useGetAdminVerifiedUsersStatsQuery = <
+      TData = GetAdminVerifiedUsersStatsQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: GetAdminVerifiedUsersStatsQueryVariables,
+      options?: UseQueryOptions<GetAdminVerifiedUsersStatsQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetAdminVerifiedUsersStatsQuery, TError, TData>(
+      variables === undefined ? ['getAdminVerifiedUsersStats'] : ['getAdminVerifiedUsersStats', variables],
+      fetcher<GetAdminVerifiedUsersStatsQuery, GetAdminVerifiedUsersStatsQueryVariables>(client, GetAdminVerifiedUsersStatsDocument, variables, headers),
+      options
+    );
+export const useInfiniteGetAdminVerifiedUsersStatsQuery = <
+      TData = GetAdminVerifiedUsersStatsQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof GetAdminVerifiedUsersStatsQueryVariables,
+      client: GraphQLClient,
+      variables?: GetAdminVerifiedUsersStatsQueryVariables,
+      options?: UseInfiniteQueryOptions<GetAdminVerifiedUsersStatsQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<GetAdminVerifiedUsersStatsQuery, TError, TData>(
+      variables === undefined ? ['getAdminVerifiedUsersStats.infinite'] : ['getAdminVerifiedUsersStats.infinite', variables],
+      (metaData) => fetcher<GetAdminVerifiedUsersStatsQuery, GetAdminVerifiedUsersStatsQueryVariables>(client, GetAdminVerifiedUsersStatsDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );
+
 export const GetAllUsersDocument = `
     query getAllUsers {
   User {
