@@ -10,7 +10,7 @@ export default function Account({User}: {User: TSessionUser}){
     return (
        <Dashboard User={User} onDashboard={true}>
            <div>
-            <UserStatistics />
+            <UserStatistics User={User} />
             {/* <AdminUsers /> */}
            </div>
        </Dashboard>
