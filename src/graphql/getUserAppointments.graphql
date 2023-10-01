@@ -1,0 +1,31 @@
+query getAllUserAppointments($UserId: uuid!){
+  Appointment_aggregate(where: {UserId: {_eq: $UserId}}){
+    aggregate{
+      count
+    }
+  }
+}
+
+query getAllUserStatusAppointments($UserId: uuid!, $Status: String){
+  Appointment_aggregate(where: {UserId: {_eq: $UserId}, Status: {_eq: $Status}}){
+    aggregate{
+      count
+    }
+  }
+}
+
+query getAllUserMessages($UserId: uuid!){
+  Message_aggregate(where: {UserId: {_eq: $UserId}}){
+    aggregate{
+      count
+    }
+  }
+}
+
+query getAllUserStatusMessages($UserId: uuid!, $Status: String){
+  Message_aggregate(where: {UserId: {_eq: $UserId}, Status: {_eq: $Status}}){
+    aggregate{
+      count
+    }
+  }
+}

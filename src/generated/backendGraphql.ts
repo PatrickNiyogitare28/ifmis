@@ -1618,6 +1618,16 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = { __typename?: 'mutation_root', insert_User_one?: { __typename?: 'User', Id: any, FullName: string, Email: string, Phone: string, Role: string, IsOrganization: boolean, IsActive: boolean } | null };
 
+export type GetAdminStatisticsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAdminStatisticsQuery = { __typename?: 'query_root', Appointment_aggregate: { __typename?: 'Appointment_aggregate', aggregate?: { __typename?: 'Appointment_aggregate_fields', count: number } | null }, Message_aggregate: { __typename?: 'Message_aggregate', aggregate?: { __typename?: 'Message_aggregate_fields', count: number } | null }, User: Array<{ __typename?: 'User', Id: any }>, User_aggregate: { __typename?: 'User_aggregate', aggregate?: { __typename?: 'User_aggregate_fields', count: number } | null } };
+
+export type GetAdminVerifiedUsersStatsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAdminVerifiedUsersStatsQuery = { __typename?: 'query_root', User_aggregate: { __typename?: 'User_aggregate', aggregate?: { __typename?: 'User_aggregate_fields', count: number } | null } };
+
 export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1655,6 +1665,36 @@ export type AddMessageReplyMutationVariables = Exact<{
 
 
 export type AddMessageReplyMutation = { __typename?: 'mutation_root', insert_MessageReply_one?: { __typename?: 'MessageReply', Id: any, Reply: string } | null, update_Message_by_pk?: { __typename?: 'Message', Id: any, Message: string } | null };
+
+export type GetAllUserAppointmentsQueryVariables = Exact<{
+  UserId: Scalars['uuid'];
+}>;
+
+
+export type GetAllUserAppointmentsQuery = { __typename?: 'query_root', Appointment_aggregate: { __typename?: 'Appointment_aggregate', aggregate?: { __typename?: 'Appointment_aggregate_fields', count: number } | null } };
+
+export type GetAllUserStatusAppointmentsQueryVariables = Exact<{
+  UserId: Scalars['uuid'];
+  Status?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetAllUserStatusAppointmentsQuery = { __typename?: 'query_root', Appointment_aggregate: { __typename?: 'Appointment_aggregate', aggregate?: { __typename?: 'Appointment_aggregate_fields', count: number } | null } };
+
+export type GetAllUserMessagesQueryVariables = Exact<{
+  UserId: Scalars['uuid'];
+}>;
+
+
+export type GetAllUserMessagesQuery = { __typename?: 'query_root', Message_aggregate: { __typename?: 'Message_aggregate', aggregate?: { __typename?: 'Message_aggregate_fields', count: number } | null } };
+
+export type GetAllUserStatusMessagesQueryVariables = Exact<{
+  UserId: Scalars['uuid'];
+  Status?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetAllUserStatusMessagesQuery = { __typename?: 'query_root', Message_aggregate: { __typename?: 'Message_aggregate', aggregate?: { __typename?: 'Message_aggregate_fields', count: number } | null } };
 
 export type GetUserWithEmailQueryVariables = Exact<{
   Email?: InputMaybe<Scalars['String']>;
@@ -1726,6 +1766,37 @@ export const CreateUserDocument = gql`
     Role
     IsOrganization
     IsActive
+  }
+}
+    `;
+export const GetAdminStatisticsDocument = gql`
+    query getAdminStatistics {
+  Appointment_aggregate {
+    aggregate {
+      count
+    }
+  }
+  Message_aggregate {
+    aggregate {
+      count
+    }
+  }
+  User {
+    Id
+  }
+  User_aggregate(where: {IsOrganization: {_eq: true}}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+export const GetAdminVerifiedUsersStatsDocument = gql`
+    query getAdminVerifiedUsersStats {
+  User_aggregate(where: {IsActive: {_eq: true}}) {
+    aggregate {
+      count
+    }
   }
 }
     `;
@@ -1832,6 +1903,42 @@ export const AddMessageReplyDocument = gql`
   }
 }
     `;
+export const GetAllUserAppointmentsDocument = gql`
+    query getAllUserAppointments($UserId: uuid!) {
+  Appointment_aggregate(where: {UserId: {_eq: $UserId}}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+export const GetAllUserStatusAppointmentsDocument = gql`
+    query getAllUserStatusAppointments($UserId: uuid!, $Status: String) {
+  Appointment_aggregate(where: {UserId: {_eq: $UserId}, Status: {_eq: $Status}}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+export const GetAllUserMessagesDocument = gql`
+    query getAllUserMessages($UserId: uuid!) {
+  Message_aggregate(where: {UserId: {_eq: $UserId}}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+export const GetAllUserStatusMessagesDocument = gql`
+    query getAllUserStatusMessages($UserId: uuid!, $Status: String) {
+  Message_aggregate(where: {UserId: {_eq: $UserId}, Status: {_eq: $Status}}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
 export const GetUserWithEmailDocument = gql`
     query getUserWithEmail($Email: String) {
   User(where: {Email: {_eq: $Email}}) {
@@ -1897,6 +2004,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     createUser(variables?: CreateUserMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<CreateUserMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateUserMutation>(CreateUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createUser', 'mutation');
     },
+    getAdminStatistics(variables?: GetAdminStatisticsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetAdminStatisticsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetAdminStatisticsQuery>(GetAdminStatisticsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAdminStatistics', 'query');
+    },
+    getAdminVerifiedUsersStats(variables?: GetAdminVerifiedUsersStatsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetAdminVerifiedUsersStatsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetAdminVerifiedUsersStatsQuery>(GetAdminVerifiedUsersStatsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAdminVerifiedUsersStats', 'query');
+    },
     getAllUsers(variables?: GetAllUsersQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetAllUsersQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetAllUsersQuery>(GetAllUsersDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAllUsers', 'query');
     },
@@ -1914,6 +2027,18 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     addMessageReply(variables: AddMessageReplyMutationVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<AddMessageReplyMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<AddMessageReplyMutation>(AddMessageReplyDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'addMessageReply', 'mutation');
+    },
+    getAllUserAppointments(variables: GetAllUserAppointmentsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetAllUserAppointmentsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetAllUserAppointmentsQuery>(GetAllUserAppointmentsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAllUserAppointments', 'query');
+    },
+    getAllUserStatusAppointments(variables: GetAllUserStatusAppointmentsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetAllUserStatusAppointmentsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetAllUserStatusAppointmentsQuery>(GetAllUserStatusAppointmentsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAllUserStatusAppointments', 'query');
+    },
+    getAllUserMessages(variables: GetAllUserMessagesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetAllUserMessagesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetAllUserMessagesQuery>(GetAllUserMessagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAllUserMessages', 'query');
+    },
+    getAllUserStatusMessages(variables: GetAllUserStatusMessagesQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetAllUserStatusMessagesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetAllUserStatusMessagesQuery>(GetAllUserStatusMessagesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAllUserStatusMessages', 'query');
     },
     getUserWithEmail(variables?: GetUserWithEmailQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<GetUserWithEmailQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetUserWithEmailQuery>(GetUserWithEmailDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getUserWithEmail', 'query');

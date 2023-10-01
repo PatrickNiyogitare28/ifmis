@@ -1627,6 +1627,16 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = { __typename?: 'mutation_root', insert_User_one?: { __typename?: 'User', Id: any, FullName: string, Email: string, Phone: string, Role: string, IsOrganization: boolean, IsActive: boolean } | null };
 
+export type GetAdminStatisticsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAdminStatisticsQuery = { __typename?: 'query_root', Appointment_aggregate: { __typename?: 'Appointment_aggregate', aggregate?: { __typename?: 'Appointment_aggregate_fields', count: number } | null }, Message_aggregate: { __typename?: 'Message_aggregate', aggregate?: { __typename?: 'Message_aggregate_fields', count: number } | null }, User: Array<{ __typename?: 'User', Id: any }>, User_aggregate: { __typename?: 'User_aggregate', aggregate?: { __typename?: 'User_aggregate_fields', count: number } | null } };
+
+export type GetAdminVerifiedUsersStatsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAdminVerifiedUsersStatsQuery = { __typename?: 'query_root', User_aggregate: { __typename?: 'User_aggregate', aggregate?: { __typename?: 'User_aggregate_fields', count: number } | null } };
+
 export type GetAllUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -1664,6 +1674,36 @@ export type AddMessageReplyMutationVariables = Exact<{
 
 
 export type AddMessageReplyMutation = { __typename?: 'mutation_root', insert_MessageReply_one?: { __typename?: 'MessageReply', Id: any, Reply: string } | null, update_Message_by_pk?: { __typename?: 'Message', Id: any, Message: string } | null };
+
+export type GetAllUserAppointmentsQueryVariables = Exact<{
+  UserId: Scalars['uuid'];
+}>;
+
+
+export type GetAllUserAppointmentsQuery = { __typename?: 'query_root', Appointment_aggregate: { __typename?: 'Appointment_aggregate', aggregate?: { __typename?: 'Appointment_aggregate_fields', count: number } | null } };
+
+export type GetAllUserStatusAppointmentsQueryVariables = Exact<{
+  UserId: Scalars['uuid'];
+  Status?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetAllUserStatusAppointmentsQuery = { __typename?: 'query_root', Appointment_aggregate: { __typename?: 'Appointment_aggregate', aggregate?: { __typename?: 'Appointment_aggregate_fields', count: number } | null } };
+
+export type GetAllUserMessagesQueryVariables = Exact<{
+  UserId: Scalars['uuid'];
+}>;
+
+
+export type GetAllUserMessagesQuery = { __typename?: 'query_root', Message_aggregate: { __typename?: 'Message_aggregate', aggregate?: { __typename?: 'Message_aggregate_fields', count: number } | null } };
+
+export type GetAllUserStatusMessagesQueryVariables = Exact<{
+  UserId: Scalars['uuid'];
+  Status?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type GetAllUserStatusMessagesQuery = { __typename?: 'query_root', Message_aggregate: { __typename?: 'Message_aggregate', aggregate?: { __typename?: 'Message_aggregate_fields', count: number } | null } };
 
 export type GetUserWithEmailQueryVariables = Exact<{
   Email?: InputMaybe<Scalars['String']>;
@@ -1777,6 +1817,97 @@ export const useCreateUserMutation = <
       (variables?: CreateUserMutationVariables) => fetcher<CreateUserMutation, CreateUserMutationVariables>(client, CreateUserDocument, variables, headers)(),
       options
     );
+export const GetAdminStatisticsDocument = `
+    query getAdminStatistics {
+  Appointment_aggregate {
+    aggregate {
+      count
+    }
+  }
+  Message_aggregate {
+    aggregate {
+      count
+    }
+  }
+  User {
+    Id
+  }
+  User_aggregate(where: {IsOrganization: {_eq: true}}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+export const useGetAdminStatisticsQuery = <
+      TData = GetAdminStatisticsQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: GetAdminStatisticsQueryVariables,
+      options?: UseQueryOptions<GetAdminStatisticsQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetAdminStatisticsQuery, TError, TData>(
+      variables === undefined ? ['getAdminStatistics'] : ['getAdminStatistics', variables],
+      fetcher<GetAdminStatisticsQuery, GetAdminStatisticsQueryVariables>(client, GetAdminStatisticsDocument, variables, headers),
+      options
+    );
+export const useInfiniteGetAdminStatisticsQuery = <
+      TData = GetAdminStatisticsQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof GetAdminStatisticsQueryVariables,
+      client: GraphQLClient,
+      variables?: GetAdminStatisticsQueryVariables,
+      options?: UseInfiniteQueryOptions<GetAdminStatisticsQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<GetAdminStatisticsQuery, TError, TData>(
+      variables === undefined ? ['getAdminStatistics.infinite'] : ['getAdminStatistics.infinite', variables],
+      (metaData) => fetcher<GetAdminStatisticsQuery, GetAdminStatisticsQueryVariables>(client, GetAdminStatisticsDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );
+
+export const GetAdminVerifiedUsersStatsDocument = `
+    query getAdminVerifiedUsersStats {
+  User_aggregate(where: {IsActive: {_eq: true}}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+export const useGetAdminVerifiedUsersStatsQuery = <
+      TData = GetAdminVerifiedUsersStatsQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: GetAdminVerifiedUsersStatsQueryVariables,
+      options?: UseQueryOptions<GetAdminVerifiedUsersStatsQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetAdminVerifiedUsersStatsQuery, TError, TData>(
+      variables === undefined ? ['getAdminVerifiedUsersStats'] : ['getAdminVerifiedUsersStats', variables],
+      fetcher<GetAdminVerifiedUsersStatsQuery, GetAdminVerifiedUsersStatsQueryVariables>(client, GetAdminVerifiedUsersStatsDocument, variables, headers),
+      options
+    );
+export const useInfiniteGetAdminVerifiedUsersStatsQuery = <
+      TData = GetAdminVerifiedUsersStatsQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof GetAdminVerifiedUsersStatsQueryVariables,
+      client: GraphQLClient,
+      variables?: GetAdminVerifiedUsersStatsQueryVariables,
+      options?: UseInfiniteQueryOptions<GetAdminVerifiedUsersStatsQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<GetAdminVerifiedUsersStatsQuery, TError, TData>(
+      variables === undefined ? ['getAdminVerifiedUsersStats.infinite'] : ['getAdminVerifiedUsersStats.infinite', variables],
+      (metaData) => fetcher<GetAdminVerifiedUsersStatsQuery, GetAdminVerifiedUsersStatsQueryVariables>(client, GetAdminVerifiedUsersStatsDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );
+
 export const GetAllUsersDocument = `
     query getAllUsers {
   User {
@@ -2043,6 +2174,162 @@ export const useAddMessageReplyMutation = <
       (variables?: AddMessageReplyMutationVariables) => fetcher<AddMessageReplyMutation, AddMessageReplyMutationVariables>(client, AddMessageReplyDocument, variables, headers)(),
       options
     );
+export const GetAllUserAppointmentsDocument = `
+    query getAllUserAppointments($UserId: uuid!) {
+  Appointment_aggregate(where: {UserId: {_eq: $UserId}}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+export const useGetAllUserAppointmentsQuery = <
+      TData = GetAllUserAppointmentsQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: GetAllUserAppointmentsQueryVariables,
+      options?: UseQueryOptions<GetAllUserAppointmentsQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetAllUserAppointmentsQuery, TError, TData>(
+      ['getAllUserAppointments', variables],
+      fetcher<GetAllUserAppointmentsQuery, GetAllUserAppointmentsQueryVariables>(client, GetAllUserAppointmentsDocument, variables, headers),
+      options
+    );
+export const useInfiniteGetAllUserAppointmentsQuery = <
+      TData = GetAllUserAppointmentsQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof GetAllUserAppointmentsQueryVariables,
+      client: GraphQLClient,
+      variables: GetAllUserAppointmentsQueryVariables,
+      options?: UseInfiniteQueryOptions<GetAllUserAppointmentsQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<GetAllUserAppointmentsQuery, TError, TData>(
+      ['getAllUserAppointments.infinite', variables],
+      (metaData) => fetcher<GetAllUserAppointmentsQuery, GetAllUserAppointmentsQueryVariables>(client, GetAllUserAppointmentsDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );
+
+export const GetAllUserStatusAppointmentsDocument = `
+    query getAllUserStatusAppointments($UserId: uuid!, $Status: String) {
+  Appointment_aggregate(where: {UserId: {_eq: $UserId}, Status: {_eq: $Status}}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+export const useGetAllUserStatusAppointmentsQuery = <
+      TData = GetAllUserStatusAppointmentsQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: GetAllUserStatusAppointmentsQueryVariables,
+      options?: UseQueryOptions<GetAllUserStatusAppointmentsQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetAllUserStatusAppointmentsQuery, TError, TData>(
+      ['getAllUserStatusAppointments', variables],
+      fetcher<GetAllUserStatusAppointmentsQuery, GetAllUserStatusAppointmentsQueryVariables>(client, GetAllUserStatusAppointmentsDocument, variables, headers),
+      options
+    );
+export const useInfiniteGetAllUserStatusAppointmentsQuery = <
+      TData = GetAllUserStatusAppointmentsQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof GetAllUserStatusAppointmentsQueryVariables,
+      client: GraphQLClient,
+      variables: GetAllUserStatusAppointmentsQueryVariables,
+      options?: UseInfiniteQueryOptions<GetAllUserStatusAppointmentsQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<GetAllUserStatusAppointmentsQuery, TError, TData>(
+      ['getAllUserStatusAppointments.infinite', variables],
+      (metaData) => fetcher<GetAllUserStatusAppointmentsQuery, GetAllUserStatusAppointmentsQueryVariables>(client, GetAllUserStatusAppointmentsDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );
+
+export const GetAllUserMessagesDocument = `
+    query getAllUserMessages($UserId: uuid!) {
+  Message_aggregate(where: {UserId: {_eq: $UserId}}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+export const useGetAllUserMessagesQuery = <
+      TData = GetAllUserMessagesQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: GetAllUserMessagesQueryVariables,
+      options?: UseQueryOptions<GetAllUserMessagesQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetAllUserMessagesQuery, TError, TData>(
+      ['getAllUserMessages', variables],
+      fetcher<GetAllUserMessagesQuery, GetAllUserMessagesQueryVariables>(client, GetAllUserMessagesDocument, variables, headers),
+      options
+    );
+export const useInfiniteGetAllUserMessagesQuery = <
+      TData = GetAllUserMessagesQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof GetAllUserMessagesQueryVariables,
+      client: GraphQLClient,
+      variables: GetAllUserMessagesQueryVariables,
+      options?: UseInfiniteQueryOptions<GetAllUserMessagesQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<GetAllUserMessagesQuery, TError, TData>(
+      ['getAllUserMessages.infinite', variables],
+      (metaData) => fetcher<GetAllUserMessagesQuery, GetAllUserMessagesQueryVariables>(client, GetAllUserMessagesDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );
+
+export const GetAllUserStatusMessagesDocument = `
+    query getAllUserStatusMessages($UserId: uuid!, $Status: String) {
+  Message_aggregate(where: {UserId: {_eq: $UserId}, Status: {_eq: $Status}}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+export const useGetAllUserStatusMessagesQuery = <
+      TData = GetAllUserStatusMessagesQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: GetAllUserStatusMessagesQueryVariables,
+      options?: UseQueryOptions<GetAllUserStatusMessagesQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetAllUserStatusMessagesQuery, TError, TData>(
+      ['getAllUserStatusMessages', variables],
+      fetcher<GetAllUserStatusMessagesQuery, GetAllUserStatusMessagesQueryVariables>(client, GetAllUserStatusMessagesDocument, variables, headers),
+      options
+    );
+export const useInfiniteGetAllUserStatusMessagesQuery = <
+      TData = GetAllUserStatusMessagesQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof GetAllUserStatusMessagesQueryVariables,
+      client: GraphQLClient,
+      variables: GetAllUserStatusMessagesQueryVariables,
+      options?: UseInfiniteQueryOptions<GetAllUserStatusMessagesQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<GetAllUserStatusMessagesQuery, TError, TData>(
+      ['getAllUserStatusMessages.infinite', variables],
+      (metaData) => fetcher<GetAllUserStatusMessagesQuery, GetAllUserStatusMessagesQueryVariables>(client, GetAllUserStatusMessagesDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );
+
 export const GetUserWithEmailDocument = `
     query getUserWithEmail($Email: String) {
   User(where: {Email: {_eq: $Email}}) {
