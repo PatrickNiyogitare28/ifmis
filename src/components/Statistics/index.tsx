@@ -8,7 +8,8 @@ export default function AdminStatistics () {
     const {data} = useGetStats();
     return (
         <div className="w-full">
-        <div className='w-full flex justify-between  px-6 mt-6    '>
+        <h2 className='font-bold text-xl p-4 px-6'>Metrics</h2>
+        <div className='w-full flex justify-between  px-6 mt-4    '>
             <div className='w-[20%] bg-white shadow-md rounded-md p-4'>
                 <div className='flex justify-between items-center'>
                 <label>APPOINTMENTS</label>

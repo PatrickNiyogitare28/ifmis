@@ -9,7 +9,8 @@ export default function UserStatistics ({User}: {User: TSessionUser}) {
     const {data} = useGetUserStats({userId: User.Id})
     return (
         <div>
-         <div className='w-full flex justify-between  px-6 mt-6    '>
+        <h2 className='font-bold text-xl p-4 px-6'>Metrics</h2>
+         <div className='w-full flex justify-between  px-6 mt-4'>
             <div className='w-[20%] bg-white shadow-md rounded-md p-4'>
                 <div className='flex justify-between items-center'>
                 <label>APPOINTMENTS</label>
