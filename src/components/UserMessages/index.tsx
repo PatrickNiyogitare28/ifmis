@@ -13,6 +13,7 @@ export default function UserMessagesList ({User}: {User: TSessionUser}) {
     return (
         <>
         <div className='p-6'>
+        <h2 className='font-bold text-xl p-4 px-6'>Messages</h2>
             <div className='w-full flex'>
                 <button className='bg-primary flex gap-2 items-center px-6 rounded-xl py-2 ml-auto' onClick={() => setShowModal(true)}>
                     <BiPlus color="white" />

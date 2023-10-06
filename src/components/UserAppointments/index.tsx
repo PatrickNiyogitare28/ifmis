@@ -12,6 +12,7 @@ export default function UserAppointmentsList ({User}: {User: TSessionUser}) {
     return (
         <>
         <div className='p-6'>
+        <h2 className='font-bold text-xl p-4 px-6'>Appointments</h2>
             <div className='w-full flex'>
                 <div className="ml-auto flex gap-4">
                 <button className='bg-primary flex gap-2 items-center px-6 rounded-xl py-2 ml-auto' onClick={handleDownloadReport}>

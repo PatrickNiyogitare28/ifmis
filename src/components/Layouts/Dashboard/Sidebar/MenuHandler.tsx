@@ -1,6 +1,6 @@
 import React from 'react';
 import MenuItem from './Menu';
-import {BiSolidDashboard, BiBox, BiListUl, BiGroup} from 'react-icons/bi';
+import {BiSolidDashboard, BiBox, BiListUl, BiGroup, BiSolidUserAccount} from 'react-icons/bi';
 import useActiveRoute from './hooks/useActiveRoute';
 
 export function AdminMenuHandler({onDashboard}: {onDashboard?:boolean}){
@@ -31,6 +31,12 @@ export function AdminMenuHandler({onDashboard}: {onDashboard?:boolean}){
              icon={<BiGroup color={(checkIsActiveRoute("/admin/users", true)) ? 'white' : 'silver'} size={20} />}
              label='Users'
             />
+             <MenuItem 
+             onRoute={() => onRoute("/admin/profile")}
+             isActive={checkIsActiveRoute("/admin/profile", true)}
+             icon={<BiSolidUserAccount color={(checkIsActiveRoute("/admin/profile", true)) ? 'white' : 'silver'} size={20} />}
+             label='Profile'
+            />
         </div>
     )
 }
@@ -57,7 +63,11 @@ export function StandardUserMenuHandler({onDashboard}: {onDashboard?:boolean}){
              icon={<BiListUl color={(checkIsActiveRoute("/account/messages", true)) ? 'white' : 'silver'} size={20} />}
              label='Messages'
             />
-            
+            <MenuItem 
+             onRoute={() => onRoute("/account/profile")}
+             isActive={checkIsActiveRoute("/account/profile", true)}
+             icon={<BiSolidUserAccount color={(checkIsActiveRoute("/account/profile", true)) ? 'white' : 'silver'} size={20} />}
+             label='Profile' />
         </div>
     )
 }

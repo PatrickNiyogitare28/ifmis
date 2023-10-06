@@ -5,3 +5,8 @@
 .test{
     background-color: rgba(0, 0, 0, 0.184);
 }
+
+table tr {
+    height: 50px;
+    /* min-height: 50px; */
+}
