@@ -4,12 +4,12 @@ import AppointmentsTable from '../Elements/Tables/AppointmentTable';
 import useFetchAdminAppointments from './hooks/useFetchAdminAppointments';
 
 export default function AdminAppointments () {
-    const {appointments, refetch} = useFetchAdminAppointments()
+    const {appointments, refetch, handleDownloadReport} = useFetchAdminAppointments()
     return (
         <>
         <div className='p-6'>
             <div className='w-full flex'>
-                <button className='bg-primary flex gap-2 items-center px-6 rounded-xl py-2 ml-auto' onClick={() => {}}>
+                <button className='bg-primary flex gap-2 items-center px-6 rounded-xl py-2 ml-auto' onClick={handleDownloadReport}>
                     <BiDownload color="white" />
                     <label className='text-white font-light'>DOWNLOAD REPORTS</label>
                 </button>
