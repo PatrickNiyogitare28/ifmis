@@ -1,5 +1,8 @@
 import { Message } from "@/generated/graphql"
 import axiosInstance from "@/lib/axios"
+import downloadReport from "@/utils/downloadReport"
+import formatTimestampToDate from "@/utils/formatTime"
+import generateRandomNameId from "@/utils/randomId"
 import { useEffect, useState } from "react"
 
 export default function useFetchUserMessages(){
@@ -17,6 +20,19 @@ export default function useFetchUserMessages(){
         })
     }
 
+    const handleDownloadReport = () => {
+        const data:any = [
+            ["Name", "Email", "Phone", "Message", "Message Category", "Time","Status"],
+          ];
+
+          messages.forEach((msg) => {
+            const row = [msg.User.FullName, msg.User.Email, msg.User.Phone, msg.Message, msg.Type, formatTimestampToDate(msg.CreatedAt as string), msg.Status]
+            data.push(row);
+          })
+      
+         downloadReport(data, "messages-"+generateRandomNameId())
+    }
+
     useEffect(() => {
         fetchUserMessages();
     },[])
@@ -24,6 +40,7 @@ export default function useFetchUserMessages(){
     const refetch = () => fetchUserMessages();
     return {
         messages,
-        refetch
+        refetch,
+        handleDownloadReport
     }
 }
