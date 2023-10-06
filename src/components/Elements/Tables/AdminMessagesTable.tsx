@@ -3,6 +3,7 @@ import Modal from '@/components/Modal';
 import ViewMessageReplay from '@/components/ViewMessageReply';
 import { Message } from '@/generated/graphql';
 import { TSessionUser } from '@/types/user';
+import formatTimestampToDate from '@/utils/formatTime';
 import React, { useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 
@@ -38,6 +39,7 @@ export default function AdminMessagesTable({ messages, User, refetch }: UserMess
             <th className="border bg-gray-200">PHONE</th>
             <th className="border bg-gray-200">MESSAGE</th>
             <th className="border bg-gray-200">MESSAGE TYPE</th>
+            <th className="border bg-gray-200">SENT DATE</th>
             <th className="border bg-gray-200">STATUS</th>
             <th className="border bg-gray-200">ACTION</th>
           </tr>
@@ -51,6 +53,7 @@ export default function AdminMessagesTable({ messages, User, refetch }: UserMess
               <td className="border p-2 ">{message.User.Phone}</td>
               <td className="border p-2 ">{message.Message}</td>
               <td className="border p-2 ">{message.Type}</td>
+              <td className="border p-2 ">{formatTimestampToDate(message.CreatedAt)}</td>
               <td className='border-[0.5px] text-center'>
                 <label className={`p-2 rounded-full  text-[10px]  ${message.Status === 'REPLIED' ? 'bg-green-200 ' : 'bg-yellow-200'}`}>{message.Status}</label>
               </td>

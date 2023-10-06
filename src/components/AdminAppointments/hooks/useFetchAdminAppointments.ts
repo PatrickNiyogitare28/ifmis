@@ -1,7 +1,11 @@
+import { useEffect, useState } from "react"
 import { Appointment, User } from "@/generated/graphql"
 import axiosInstance from "@/lib/axios"
 import { TSessionUser } from "@/types/user"
-import { useEffect, useState } from "react"
+import * as XLSX from 'xlsx';
+import formatTimestampToDate from "@/utils/formatTime";
+import downloadReport from "@/utils/downloadReport";
+import generateRandomNameId from "@/utils/randomId";
 
 export default function useFetchAdminAppointments(){
     const [appointments, setAppointments] = useState<Appointment[]>([])
@@ -22,9 +26,22 @@ export default function useFetchAdminAppointments(){
         fetchAppointments();
     },[])
 
+    const handleDownloadReport = () => {
+        const data:any = [
+            ["Name", "Phone", "Email", "Appointment", "Reason", "Appointment category", "Time", "Status"],
+          ];
+
+          appointments.forEach((app) => {
+            const row = [app.User.FullName, app.User.Phone, app.User.Email, app.Title, app.Message, app.Type,  formatTimestampToDate(app.Time as string), app.Status]
+            data.push(row);
+          })
+      
+         downloadReport(data, "appointments-"+generateRandomNameId())
+    }
     const refetch = () => fetchAppointments();
     return {
         appointments,
-        refetch
+        refetch,
+        handleDownloadReport
     }
 }
