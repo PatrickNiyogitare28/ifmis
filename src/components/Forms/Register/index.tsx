@@ -58,7 +58,7 @@ export default function RegisterForm(){
                 </div>
                 </form>
                 <div className='mt-4'>
-                    <span className='text-gray-600'>Have account? <Link href="/auth/signin" className='text-primary'>Login</Link></span>
+                    <span className='text-gray-600'>Have account? <Link href="/auth/login" className='text-primary'>Login</Link></span>
                 </div>
             </div>
         </div>
