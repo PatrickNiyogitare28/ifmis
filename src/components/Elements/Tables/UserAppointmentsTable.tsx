@@ -80,8 +80,8 @@ const UserAppointmentsTable = ({ appointments }: AppointmentsTableProps) => {
                
                 </>
                 :
-                <button className="px-2 py-1 bg-primary text-white rounded-md flex  gap-2 p-2 items-center">
-                    VIEW</button>
+                <button className="px-2 py-1 bg-gray-400 text-white rounded-md flex  gap-2 p-2 items-center">
+                    DOWNLOAD LETTER</button>
                 }
                 </div>
               </td>
